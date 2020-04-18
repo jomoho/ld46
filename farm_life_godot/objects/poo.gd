@@ -1,8 +1,8 @@
 extends RigidBody
 
 # stuff
-var label 
-var labelAnchor 
+var label
+var labelAnchor
 var cam
 
 var timeAlive = 0;
@@ -25,4 +25,9 @@ func _ready():
 func _on_Area_body_entered(body):
 	print("poo entered")
 	print(body.name)
-	pass # Replace with function body.
+	body.enter_poo(self)
+	pass
+	
+func _on_Area_body_exited(body):
+	body.exit_area(self)
+	pass

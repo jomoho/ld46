@@ -1,3 +1,4 @@
+# TOOL
 extends RigidBody
 
 # stuff
@@ -9,6 +10,7 @@ var timeAlive = 0;
 
 func _process(_delta):
 	timeAlive += _delta
+	label.set_text(name)
 	## adjust label position
 	var pos = labelAnchor.get_global_transform().origin;
 	var screenPos = cam.unproject_position(pos);
@@ -23,11 +25,12 @@ func _ready():
 
 
 func _on_Area_body_entered(body):
-	print("gras entered")
+	print("%s entered" % name)
 	print(body.name)
-	body.enter_gras(self)
-	pass # Replace with function body.
-	
+	body.enter_tool(self)
+	pass 
+
+
 func _on_Area_body_exited(body):
 	body.exit_area(self)
-	pass
+	pass 

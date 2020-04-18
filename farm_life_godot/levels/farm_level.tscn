@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://objects/characters/cow_agent.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/characters/farmer_player.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://levels/farm_level.gd" type="Script" id=4]
 [ext_resource path="res://objects/gras.gd" type="Script" id=5]
 [ext_resource path="res://objects/poo.gd" type="Script" id=6]
+[ext_resource path="res://objects/tool.gd" type="Script" id=7]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -102,7 +103,45 @@ text = "Gras"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="pitchfork" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 25.4947, 1.57472, 27.9983 )
+mass = 10.0
+script = ExtResource( 7 )
+
+[node name="CollisionShape" type="CollisionShape" parent="pitchfork"]
+transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="pitchfork/CollisionShape"]
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Area" type="Area" parent="pitchfork"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape" type="CollisionShape" parent="pitchfork/Area"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="LabelAnchor" type="Spatial" parent="pitchfork"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.304605, 0 )
+
+[node name="Label" type="Label" parent="pitchfork"]
+margin_left = 86.0
+margin_top = 45.0
+margin_right = 132.0
+margin_bottom = 59.0
+text = "Gras"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="body_entered" from="poo/Area" to="poo" method="_on_Area_body_entered"]
-[connection signal="body_entered" from="gras/Area" to="gras" method="_on_Area_body_entered" flags=6]
+[connection signal="body_exited" from="poo/Area" to="poo" method="_on_Area_body_exited"]
+[connection signal="body_entered" from="gras/Area" to="gras" method="_on_Area_body_entered"]
+[connection signal="body_exited" from="gras/Area" to="gras" method="_on_Area_body_exited"]
+[connection signal="body_entered" from="pitchfork/Area" to="pitchfork" method="_on_Area_body_entered"]
+[connection signal="body_exited" from="pitchfork/Area" to="pitchfork" method="_on_Area_body_exited"]
 
 [editable path="cow_agent"]
