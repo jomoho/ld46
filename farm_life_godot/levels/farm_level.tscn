@@ -1,56 +1,25 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://objects/characters/cow_agent.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/characters/farmer_player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://levels/farm_land.tscn" type="PackedScene" id=3]
+[ext_resource path="res://models/farm_land.gltf" type="PackedScene" id=3]
+[ext_resource path="res://levels/farm_level.gd" type="Script" id=4]
+[ext_resource path="res://objects/gras.gd" type="Script" id=5]
+[ext_resource path="res://objects/poo.gd" type="Script" id=6]
 
 [sub_resource type="BoxShape" id=1]
 
-[sub_resource type="BoxShape" id=2]
-extents = Vector3( 1, 1, 1.06406 )
+[sub_resource type="CubeMesh" id=2]
 
 [node name="farm_level" type="Spatial"]
-
-[node name="farm_land" parent="." instance=ExtResource( 3 )]
+script = ExtResource( 4 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.9969, 0, -21.9509 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.9969, 0, 18.7135 )
+collision_layer = 7
+collision_mask = 7
 cameraPath = NodePath("../../farm_level/Player/camera_dolly/Camera")
 meshPath = NodePath("../../farm_level/Player/farmer_rig")
-
-[node name="StaticBody" type="StaticBody" parent="."]
-
-[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
-transform = Transform( 64, 0, 0, 0, 1, 0, 0, 0, 64, 0.000883102, -0.980396, 0.0372362 )
-shape = SubResource( 1 )
-
-[node name="CollisionShape2" type="CollisionShape" parent="StaticBody"]
-transform = Transform( 1.028, 0, 0, 0, 1.138, 0, 0, 0, 9, 1.00334, 1.0972, 10.2207 )
-shape = SubResource( 2 )
-
-[node name="CollisionShape7" type="CollisionShape" parent="StaticBody"]
-transform = Transform( -1.09169e-07, 0, 5.86641, 0, 1.138, 0, -1.028, 0, -1.46629e-06, 6.40772, 1, 0.904548 )
-shape = SubResource( 2 )
-
-[node name="CollisionShape8" type="CollisionShape" parent="StaticBody"]
-transform = Transform( -5.91866e-08, 0, 3.18051, 0, 1.138, 0, -1.028, 0, -1.46629e-06, 19.2915, 1, 0.772332 )
-shape = SubResource( 2 )
-
-[node name="CollisionShape3" type="CollisionShape" parent="StaticBody"]
-transform = Transform( 1.028, 0, 0, 0, 1.138, 0, 0, 0, 6.5, 1.00334, 1.06203, 28.7418 )
-shape = SubResource( 2 )
-
-[node name="CollisionShape4" type="CollisionShape" parent="StaticBody"]
-transform = Transform( 1.028, 0, 0, 0, 1.138, 0, 0, 0, 4, 1.00334, 1.06203, 42.6848 )
-shape = SubResource( 2 )
-
-[node name="CollisionShape5" type="CollisionShape" parent="StaticBody"]
-transform = Transform( -1.67482e-07, 0, 24, 0, 1.138, 0, -1.028, 0, -3.9101e-06, 23.971, 1.06203, 47.0494 )
-shape = SubResource( 2 )
-
-[node name="CollisionShape6" type="CollisionShape" parent="StaticBody"]
-transform = Transform( 1.028, 0, 0, 0, 1.138, 0, 0, 0, 24, 47.2441, 1.06203, 23.9647 )
-shape = SubResource( 2 )
 
 [node name="RayCast" type="RayCast" parent="."]
 
@@ -61,6 +30,79 @@ shadow_color = Color( 0.0627451, 0.0392157, 0.309804, 1 )
 
 [node name="cow_agent" parent="." instance=ExtResource( 1 )]
 transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 28.2972, 0, 19.464 )
+collision_layer = 7
+collision_mask = 7
 
-[node name="cow_agent2" parent="." instance=ExtResource( 1 )]
-transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 28.2972, 0, 22.0537 )
+[node name="farm_land" parent="." instance=ExtResource( 3 )]
+
+[node name="poo" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 25.4947, 1.57472, 25.1523 )
+mass = 10.0
+script = ExtResource( 6 )
+
+[node name="CollisionShape" type="CollisionShape" parent="poo"]
+transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="poo/CollisionShape"]
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Area" type="Area" parent="poo"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="poo/Area"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="LabelAnchor" type="Spatial" parent="poo"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.300306, 0 )
+
+[node name="Label" type="Label" parent="poo"]
+margin_left = 58.0
+margin_top = 95.0
+margin_right = 104.0
+margin_bottom = 109.0
+text = "Poo"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="gras" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 25.4947, 1.57472, 27.9983 )
+mass = 10.0
+script = ExtResource( 5 )
+
+[node name="CollisionShape" type="CollisionShape" parent="gras"]
+transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="gras/CollisionShape"]
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Area" type="Area" parent="gras"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape" type="CollisionShape" parent="gras/Area"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="LabelAnchor" type="Spatial" parent="gras"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.304605, 0 )
+
+[node name="Label" type="Label" parent="gras"]
+margin_left = 86.0
+margin_top = 45.0
+margin_right = 132.0
+margin_bottom = 59.0
+text = "Gras"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="body_entered" from="poo/Area" to="poo" method="_on_Area_body_entered"]
+[connection signal="body_entered" from="gras/Area" to="gras" method="_on_Area_body_entered" flags=6]
+
+[editable path="cow_agent"]
