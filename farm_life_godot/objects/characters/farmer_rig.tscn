@@ -5,20 +5,29 @@
 [sub_resource type="AnimationNodeAnimation" id=1]
 animation = "carry-loop"
 
-[sub_resource type="AnimationNodeAnimation" id=2]
+[sub_resource type="AnimationNodeBlend2" id=2]
+
+[sub_resource type="AnimationNodeAnimation" id=3]
 animation = "walk-loop"
 
-[sub_resource type="AnimationNodeStateMachine" id=3]
-states/carry-loop/node = SubResource( 1 )
-states/carry-loop/position = Vector2( 196, 125 )
-states/walk-loop/node = SubResource( 2 )
-states/walk-loop/position = Vector2( 207, 194 )
-
-[sub_resource type="AnimationNodeStateMachinePlayback" id=4]
+[sub_resource type="AnimationNodeBlendTree" id=4]
+nodes/carry/node = SubResource( 1 )
+nodes/carry/position = Vector2( 60, 80 )
+nodes/output/position = Vector2( 720, 160 )
+nodes/walk/node = SubResource( 3 )
+nodes/walk/position = Vector2( 80, 240 )
+nodes/walk-carry/node = SubResource( 2 )
+nodes/walk-carry/position = Vector2( 460, 80 )
+node_connections = [ "output", 0, "walk-carry", "walk-carry", 0, "carry", "walk-carry", 1, "walk" ]
 
 [node name="farmer_player" instance=ExtResource( 1 )]
 
+[node name="AnimationPlayer" parent="." index="1"]
+method_call_mode = 1
+
 [node name="AnimationTree" type="AnimationTree" parent="." index="2"]
-tree_root = SubResource( 3 )
+tree_root = SubResource( 4 )
 anim_player = NodePath("../AnimationPlayer")
-parameters/playback = SubResource( 4 )
+active = true
+process_mode = 2
+parameters/walk-carry/blend_amount = 0.0
