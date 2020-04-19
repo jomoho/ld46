@@ -1,5 +1,5 @@
 # TOOL
-extends RigidBody
+extends Spatial
 
 # stuff
 var label
@@ -10,7 +10,7 @@ var timeAlive = 0;
 
 func _process(_delta):
 	timeAlive += _delta
-	label.set_text(name)
+	label.set_text(make_text())
 	## adjust label position
 	var pos = labelAnchor.get_global_transform().origin;
 	var screenPos = cam.unproject_position(pos);
@@ -34,3 +34,6 @@ func _on_Area_body_entered(body):
 func _on_Area_body_exited(body):
 	body.exit_area(self)
 	pass 
+
+func make_text():
+	return name

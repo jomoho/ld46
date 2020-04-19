@@ -4,18 +4,18 @@
 [ext_resource path="res://objects/characters/farmer_player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://models/farm_land.gltf" type="PackedScene" id=3]
 [ext_resource path="res://levels/farm_level.gd" type="Script" id=4]
-[ext_resource path="res://objects/gras.gd" type="Script" id=5]
-[ext_resource path="res://objects/poo.gd" type="Script" id=6]
-[ext_resource path="res://objects/tool.gd" type="Script" id=7]
-
-[sub_resource type="BoxShape" id=1]
-
-[sub_resource type="CubeMesh" id=2]
+[ext_resource path="res://objects/gras.tscn" type="PackedScene" id=5]
+[ext_resource path="res://objects/pitchfork.tscn" type="PackedScene" id=6]
+[ext_resource path="res://objects/poo.tscn" type="PackedScene" id=7]
+[ext_resource path="res://objects/sickle.tscn" type="PackedScene" id=8]
+[ext_resource path="res://objects/grasland.tscn" type="PackedScene" id=9]
 
 [node name="farm_level" type="Spatial"]
 script = ExtResource( 4 )
 
-[node name="Player" parent="." instance=ExtResource( 2 )]
+[node name="Player" parent="." groups=[
+"player",
+] instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.9969, 0, 18.7135 )
 collision_layer = 7
 collision_mask = 7
@@ -25,9 +25,15 @@ meshPath = NodePath("../../farm_level/Player/farmer_rig")
 [node name="RayCast" type="RayCast" parent="."]
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.173648, 0.984808, 0, -0.984808, 0.173648, 0.239976, 4.58959, 0 )
+transform = Transform( 0.93358, 0.253404, 0.253404, 0, -0.707107, 0.707107, 0.358368, -0.660141, -0.660141, 0.239976, 4.58959, 0 )
+light_color = Color( 0.992157, 0.87451, 0.560784, 1 )
+light_energy = 1.29
+light_indirect_energy = 1.34
+light_specular = 0.17
 shadow_enabled = true
-shadow_color = Color( 0.0627451, 0.0392157, 0.309804, 1 )
+shadow_color = Color( 0.262745, 0.188235, 0.0745098, 1 )
+shadow_bias = 0.01
+directional_shadow_max_distance = 117.9
 
 [node name="cow_agent" parent="." instance=ExtResource( 1 )]
 transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 28.2972, 0, 19.464 )
@@ -36,112 +42,20 @@ collision_mask = 7
 
 [node name="farm_land" parent="." instance=ExtResource( 3 )]
 
-[node name="poo" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 25.4947, 1.57472, 25.1523 )
-mass = 10.0
-script = ExtResource( 6 )
+[node name="poo" parent="." instance=ExtResource( 7 )]
 
-[node name="CollisionShape" type="CollisionShape" parent="poo"]
-transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
-shape = SubResource( 1 )
+[node name="grasland" parent="." instance=ExtResource( 9 )]
+growTime = 30
 
-[node name="MeshInstance" type="MeshInstance" parent="poo/CollisionShape"]
-mesh = SubResource( 2 )
-material/0 = null
+[node name="grasland2" parent="." instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 23.8575, 0, 12.416 )
 
-[node name="Area" type="Area" parent="poo"]
-collision_layer = 2
-collision_mask = 2
+[node name="gras" parent="." instance=ExtResource( 5 )]
 
-[node name="CollisionShape" type="CollisionShape" parent="poo/Area"]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
-shape = SubResource( 1 )
+[node name="pitchfork" parent="." instance=ExtResource( 6 )]
 
-[node name="LabelAnchor" type="Spatial" parent="poo"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.300306, 0 )
-
-[node name="Label" type="Label" parent="poo"]
-margin_left = 58.0
-margin_top = 95.0
-margin_right = 104.0
-margin_bottom = 109.0
-text = "Poo"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="gras" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 25.4947, 1.57472, 27.9983 )
-mass = 10.0
-script = ExtResource( 5 )
-
-[node name="CollisionShape" type="CollisionShape" parent="gras"]
-transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
-shape = SubResource( 1 )
-
-[node name="MeshInstance" type="MeshInstance" parent="gras/CollisionShape"]
-mesh = SubResource( 2 )
-material/0 = null
-
-[node name="Area" type="Area" parent="gras"]
-collision_layer = 4
-collision_mask = 4
-
-[node name="CollisionShape" type="CollisionShape" parent="gras/Area"]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
-shape = SubResource( 1 )
-
-[node name="LabelAnchor" type="Spatial" parent="gras"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.304605, 0 )
-
-[node name="Label" type="Label" parent="gras"]
-margin_left = 86.0
-margin_top = 45.0
-margin_right = 132.0
-margin_bottom = 59.0
-text = "Gras"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="pitchfork" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 25.4947, 1.57472, 27.9983 )
-mass = 10.0
-script = ExtResource( 7 )
-
-[node name="CollisionShape" type="CollisionShape" parent="pitchfork"]
-transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
-shape = SubResource( 1 )
-
-[node name="MeshInstance" type="MeshInstance" parent="pitchfork/CollisionShape"]
-mesh = SubResource( 2 )
-material/0 = null
-
-[node name="Area" type="Area" parent="pitchfork"]
-collision_layer = 4
-collision_mask = 4
-
-[node name="CollisionShape" type="CollisionShape" parent="pitchfork/Area"]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
-shape = SubResource( 1 )
-
-[node name="LabelAnchor" type="Spatial" parent="pitchfork"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.304605, 0 )
-
-[node name="Label" type="Label" parent="pitchfork"]
-margin_left = 86.0
-margin_top = 45.0
-margin_right = 132.0
-margin_bottom = 59.0
-text = "Gras"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-[connection signal="body_entered" from="poo/Area" to="poo" method="_on_Area_body_entered"]
-[connection signal="body_exited" from="poo/Area" to="poo" method="_on_Area_body_exited"]
-[connection signal="body_entered" from="gras/Area" to="gras" method="_on_Area_body_entered"]
-[connection signal="body_exited" from="gras/Area" to="gras" method="_on_Area_body_exited"]
-[connection signal="body_entered" from="pitchfork/Area" to="pitchfork" method="_on_Area_body_entered"]
-[connection signal="body_exited" from="pitchfork/Area" to="pitchfork" method="_on_Area_body_exited"]
+[node name="sickle" parent="." groups=[
+"sickle",
+] instance=ExtResource( 8 )]
 
 [editable path="cow_agent"]
