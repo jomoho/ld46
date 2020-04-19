@@ -7,6 +7,7 @@
 extents = Vector3( 1.05192, 3.39333, 1 )
 
 [node name="gras" type="RigidBody" groups=[
+"can_carry",
 "gras",
 ]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 25.4947, 1.57472, 27.9983 )

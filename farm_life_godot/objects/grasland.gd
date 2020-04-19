@@ -18,7 +18,7 @@ func _ready():
 func _process(_delta):
 	growTime += _delta
 	progress = min(growTime, MAX_GROW_TIME )/MAX_GROW_TIME
-	print(progress)
+	# print(progress)
 	$MeshInstance.transform=startTransform.scaled(Vector3(1,progress,1))
 
 

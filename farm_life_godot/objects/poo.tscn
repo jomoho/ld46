@@ -7,11 +7,13 @@
 extents = Vector3( 1.55306, 1, 1.39888 )
 
 [node name="poo" type="RigidBody" groups=[
+"can_carry",
 "poo",
 ]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 25.4947, 1.57472, 25.1523 )
 mass = 10.0
 script = ExtResource( 1 )
+disableCollision = false
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = ExtResource( 2 )

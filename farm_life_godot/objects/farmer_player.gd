@@ -47,25 +47,24 @@ func _process(_delta):
 
 	if actionCounter > 0.5:
 		if(Input.is_action_pressed("drop")):
-			if equiped != null:
+			if stack.size() > 0:
+					drop_stack()
+			elif equiped != null:
 				actionCounter = 0
-				print("drop %s !" % equiped.name)
-				equiped.set_axis_velocity(Vector3.UP)
-				equiped = null;
-				label.set_text("")
+				drop_tool()
 
 		if(Input.is_action_pressed("action")):
 			actionCounter = 0
 			print("ACTION")
 			if stack.size() > 0:
-					drop_poo()
+					drop_stack()
 			elif interactable != null:
 				print(interactable.name)
 				if interactable.is_in_group('poo'):
 					if equiped.is_in_group('pitchfork'):
-						pick_up_poo(interactable)
-				if interactable.is_in_group( 'grass'):
-					pick_up_gras(interactable)
+						pick_to_carry(interactable)
+				elif interactable.is_in_group( 'can_carry'):
+					pick_to_carry(interactable)
 				if interactable.is_in_group('cow'):
 					milk_cow(interactable)
 				if interactable.is_in_group('grasland'):
@@ -73,13 +72,15 @@ func _process(_delta):
 						if equiped.is_in_group( 'sickle'):
 							#TODO: play harvest oneshot
 							interactable.harvest_hit()
-				if interactable.is_in_group('pitchfork') or  interactable.is_in_group('sickle'):
+				if interactable.is_in_group('tool'):
 					pick_up_tool(interactable)
 
 	if equiped != null:
 		equiped.set_global_transform(equipedAnchor.get_global_transform())
-	for x in stack:
-		x.set_transform(carryAnchor.get_global_transform())
+
+	for i in range(stack.size()):
+			stack[i].set_transform(carryAnchor.get_global_transform())
+
 
 
 
@@ -161,6 +162,17 @@ func enter_grasland(body):
 	interactable = body
 	pass
 
+func enter_dungheap(body):
+	print("grasland body entered")
+	if equiped != null:
+		if equiped.is_in_group( "sickle"):
+			interactable = body
+			label.set_text("Press [ACTION] to harvest gras!")
+	else:
+		label.set_text("Pick up the s	ickle to cut the gras!")
+	interactable = body
+	pass
+
 func exit_area(body):
 	print("exit area")
 	if interactable != null:
@@ -168,29 +180,46 @@ func exit_area(body):
 			label.set_text("")
 			if equiped != null:
 				label.set_text("press [DROP] to drop %s" % equiped.name)
-
 			interactable = null
 	pass
 
-func pick_up_poo(body):
-	print("pick up poo")
-	if stack.size() < 3:
-		stack.push_back(body)
-
-func drop_poo():
-	print("pick up poo")
-	stack.pop_back()
+func drop_stack():
+	print("pick up stack" )
+	var x = stack.pop_back()
+	x.drop()
+	x.set_axis_velocity(Vector3.UP)
 	pass
 
 func pick_up_tool(body):
+	if equiped != null:
+		drop_tool()
+		
 	equiped = body
-	print("pick up tool")
+	body.pick_up()
+	print("pick up tool %s" % body.name)
+	pass
+	
+func drop_tool():
+	print("drop %s !" % equiped.name)
+	equiped.set_axis_velocity(Vector3.UP)
+	equiped.drop()
+	equiped = null;
+	label.set_text("")
 	pass
 
-func pick_up_gras(body):
-	print("pick up gras")
+func pick_to_carry(body):
+	print("pick_to_carry %s" % body.name)
+	if body.is_in_group("milkcan"):
+		label.set_text("Bring the milk to the kitchen to feed the Family");
+	if body.is_in_group("poo"):
+		label.set_text("Bring the poo to the dungheap to keep cows healthy!");
+
+	if stack.size() < 1:
+		body.pick_up()
+		stack.push_back(body)
 	pass
 
 func milk_cow(body):
 	print("milk_cow")
+	body.milk_action(self)
 	pass

@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Farm Life"
-run/main_scene="res://levels/farm_level.tscn"
+run/main_scene="res://scenes/farm/farm_level.tscn"
 config/icon="res://icon.png"
 
 [input]

@@ -1,12 +1,13 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://objects/characters/farmer_rig.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/farmer_player.gd" type="Script" id=2]
 [ext_resource path="res://objects/camera.gd" type="Script" id=3]
+[ext_resource path="res://ttf/atwriter.ttf" type="DynamicFontData" id=4]
 
 [sub_resource type="CapsuleShape" id=1]
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "carry-loop"
 length = 1.04167
 loop = true
@@ -1537,7 +1538,7 @@ tracks/217/imported = false
 tracks/217/enabled = true
 tracks/217/keys = PoolRealArray( 0, 1, -0.0542711, 0.0198987, -0.118471, 0.0255506, -0.000782949, -0.0266144, 0.999319, 1, 1, 1, 0.0666667, 1, -0.0458504, 0.0245674, -0.125569, 0.0255532, -0.000661234, -0.0224753, 0.999421, 1, 1, 1, 0.133333, 1, -0.011282, 0.0443124, -0.154636, 0.0255592, -0.000162425, -0.00552041, 0.999658, 1, 1, 1, 0.2, 1, 0, 0.0496277, -0.159851, 0.0255596, 0, 0, 0.999673, 1, 1, 1, 0.266667, 1, 0, 0.0423896, -0.138597, 0.0255596, 0, 0, 0.999673, 1, 1, 1, 0.333333, 1, 0, 0.0317193, -0.110963, 0.0255596, 0, 0, 0.999673, 1, 1, 1, 0.4, 1, 0, 0.0216069, -0.0944743, 0.0255596, 0, 0, 0.999673, 1, 1, 1, 0.466667, 1, 0.0193748, 0.0137199, -0.0972865, 0.0255585, 0.000278446, 0.00946369, 0.999629, 1, 1, 1, 0.533333, 1, 0.051717, 0.00972092, -0.115636, 0.0255515, 0.000742413, 0.0252347, 0.999355, 1, 1, 1, 0.6, 1, 0.0298819, 0.0112277, -0.141707, 0.0255569, 0.00042927, 0.0145899, 0.999567, 1, 1, 1, 0.666667, 1, 0, 0.0146493, -0.157188, 0.0255596, 0, 0, 0.999673, 1, 1, 1, 0.733333, 1, 0, 0.0162498, -0.145182, 0.0255596, 0, 0, 0.999673, 1, 1, 1, 0.866667, 1, 0, 0.0190272, -0.0995488, 0.0255596, 0, 0, 0.999673, 1, 1, 1, 0.933333, 1, -0.00564103, 0.0193162, -0.0950525, 0.0255595, -8.12122e-05, -0.00276022, 0.999669, 1, 1, 1, 1, 1, -0.0402365, 0.0194851, -0.111696, 0.0255547, -0.000580086, -0.0197157, 0.999479, 1, 1, 1, 1.04167, 1, -0.0542711, 0.0198987, -0.118471, 0.0255506, -0.000782949, -0.0266144, 0.999319, 1, 1, 1 )
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "walk-loop"
 length = 1.04167
 loop = true
@@ -3068,6 +3069,13 @@ tracks/217/imported = false
 tracks/217/enabled = true
 tracks/217/keys = PoolRealArray( 0, 1, 0, 0.0132326, -0.118446, 0.0255596, 0, 0, 0.999673, 1, 1, 1, 0.0666667, 1, 0, 0.0191047, -0.125548, 0.0255596, 0, 0, 0.999673, 1, 1, 1, 0.133333, 1, 0, 0.0431522, -0.154632, 0.0255596, 0, 0, 0.999673, 1, 1, 1, 0.2, 1, 0, 0.0496277, -0.159851, 0.0255596, 0, 0, 0.999673, 1, 1, 1, 0.266667, 1, 0, 0.0423896, -0.138597, 0.0255596, 0, 0, 0.999673, 1, 1, 1, 0.333333, 1, 0, 0.0317193, -0.110963, 0.0255596, 0, 0, 0.999673, 1, 1, 1, 0.4, 1, 0, 0.0216069, -0.0944743, 0.0255596, 0, 0, 0.999673, 1, 1, 1, 0.466667, 1, 0, 0.0153383, -0.0972928, 0.0255595, 0, 0, 0.999673, 1, 1, 1, 0.533333, 1, 0, 0.0133489, -0.11565, 0.0255596, 0, 0, 0.999673, 1, 1, 1, 0.6, 1, 0, 0.0135721, -0.141716, 0.0255596, 0, 0, 0.999673, 1, 1, 1, 0.666667, 1, 0, 0.0146493, -0.157188, 0.0255596, 0, 0, 0.999673, 1, 1, 1, 0.733333, 1, 0, 0.0162498, -0.145182, 0.0255596, 0, 0, 0.999673, 1, 1, 1, 0.866667, 1, 0, 0.0190272, -0.0995488, 0.0255596, 0, 0, 0.999673, 1, 1, 1, 0.933333, 1, 0, 0.0187362, -0.0950501, 0.0255596, 0, 0, 0.999673, 1, 1, 1, 1, 1, 0, 0.0148246, -0.111678, 0.0255596, 0, 0, 0.999673, 1, 1, 1, 1.04167, 1, 0, 0.0132326, -0.118446, 0.0255596, 0, 0, 0.999673, 1, 1, 1 )
 
+[sub_resource type="DynamicFont" id=4]
+size = 24
+outline_size = 2
+outline_color = Color( 0.294118, 0.294118, 0.294118, 0.768627 )
+use_filter = true
+font_data = ExtResource( 4 )
+
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 2 )
 cameraPath = NodePath("camera_dolly/Camera")
@@ -3081,8 +3089,8 @@ shape = SubResource( 1 )
 
 [node name="AnimationPlayer" parent="farmer_rig" index="1"]
 playback_process_mode = 2
-anims/carry-loop = SubResource( 3 )
-anims/walk-loop = SubResource( 4 )
+anims/carry-loop = SubResource( 2 )
+anims/walk-loop = SubResource( 3 )
 
 [node name="AnimationTree" parent="farmer_rig" index="2"]
 active = false
@@ -3107,10 +3115,16 @@ targetPath = NodePath("../../target")
 dollyPath = NodePath("..")
 
 [node name="Label" type="Label" parent="."]
-margin_right = 40.0
-margin_bottom = 14.0
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -516.0
+margin_top = 2.0
+margin_right = -98.0
+margin_bottom = 33.0
+custom_fonts/font = SubResource( 4 )
 text = "Player"
-align = 1
+valign = 1
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

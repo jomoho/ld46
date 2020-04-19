@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://objects/characters/cow_rig.tscn" type="PackedScene" id=1]
-[ext_resource path="res://objects/cow_agent.gd" type="Script" id=2]
+[ext_resource path="res://objects/cow.gd" type="Script" id=2]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 1, 1, 1.13703 )
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 1, 1, 0.793458 )
 
 [node name="cow_agent" type="KinematicBody" groups=[
 "cow",
@@ -27,3 +30,16 @@ __meta__ = {
 
 [node name="LabelAnchor" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.05057, 0.772278 )
+
+[node name="poo_spawn" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10694, -0.981687 )
+
+[node name="milk_spawn" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.65996, 1.10694, 1.07901 )
+
+[node name="Area" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.958982, 0.114345 )
+shape = SubResource( 2 )
+[connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
