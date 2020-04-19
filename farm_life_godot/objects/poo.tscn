@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://objects/poo.gd" type="Script" id=1]
 [ext_resource path="res://models/items/poo.mesh" type="ArrayMesh" id=2]
+[ext_resource path="res://sound/sfx/Auto #9.ogg" type="AudioStream" id=3]
+[ext_resource path="res://ttf/atype_16.tres" type="DynamicFont" id=4]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 1.55306, 1, 1.39888 )
@@ -39,9 +41,14 @@ margin_left = 58.0
 margin_top = 95.0
 margin_right = 104.0
 margin_bottom = 109.0
+custom_fonts/font = ExtResource( 4 )
 text = "Poo"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="sfxDelete" type="AudioStreamPlayer3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.266277, 0 )
+stream = ExtResource( 3 )
 [connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
 [connection signal="body_exited" from="Area" to="." method="_on_Area_body_exited"]

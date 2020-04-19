@@ -36,9 +36,13 @@ func _on_Area_body_exited(body):
 func harvest_hit():
 	if growTime > MAX_GROW_TIME:
 		hits += 1
+		$sfxHarvest.play()
 		if hits > MAX_HITS:
+			$sfxReap.play()
 			growTime = 0;
 			hits = 0;
+			get_node("/root/globals").grasCut += 1;
+
 			var gras = grasScene.instance()
 			gras.set_global_transform($spawn.get_global_transform())
 			get_tree().get_root().add_child(gras)

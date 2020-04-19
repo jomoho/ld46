@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://objects/grasland.gd" type="Script" id=1]
 [ext_resource path="res://models/items/grasland.mesh" type="ArrayMesh" id=2]
+[ext_resource path="res://sound/sfx/cut_gras_01.ogg" type="AudioStream" id=3]
+[ext_resource path="res://sound/sfx/Auto #4.ogg" type="AudioStream" id=4]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 1, 0.766525, 1 )
@@ -44,5 +46,13 @@ __meta__ = {
 
 [node name="spawn" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.42407, 0 )
+
+[node name="sfxHarvest" type="AudioStreamPlayer3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.34907, 0 )
+stream = ExtResource( 3 )
+
+[node name="sfxReap" type="AudioStreamPlayer3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.34907, 0 )
+stream = ExtResource( 4 )
 [connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
 [connection signal="body_exited" from="Area" to="." method="_on_Area_body_exited"]

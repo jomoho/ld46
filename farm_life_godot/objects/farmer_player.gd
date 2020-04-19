@@ -13,6 +13,7 @@ var interactable = null
 
 var equipedAnchor
 var carryAnchor
+var pooAnchor
 
 
 var gravity = -9.8
@@ -36,6 +37,7 @@ func _ready():
 
 	equipedAnchor = get_node("farmer_rig/equiped_anchor")
 	carryAnchor = get_node("farmer_rig/carry_anchor")
+	pooAnchor = get_node("farmer_rig/poo_anchor")
 
 func _process(_delta):
 	timeAlive += _delta
@@ -79,6 +81,9 @@ func _process(_delta):
 		equiped.set_global_transform(equipedAnchor.get_global_transform())
 
 	for i in range(stack.size()):
+		if stack[i].is_in_group("poo"):
+			stack[i].set_transform(pooAnchor.get_global_transform())
+		else:
 			stack[i].set_transform(carryAnchor.get_global_transform())
 
 
@@ -86,48 +91,49 @@ func _process(_delta):
 
 func _physics_process(delta):
 	var dir = Vector3()
-
+	var walking =false
 	if(Input.is_action_pressed("move_up")):
 		dir -= camera.get_global_transform().basis[2]
+		walking =true
 	if(Input.is_action_pressed("move_back")):
 		dir += camera.get_global_transform().basis[2]
+		walking =true
 	if(Input.is_action_pressed("move_left")):
 		dir -= camera.get_global_transform().basis[0]
+		walking =true
 	if(Input.is_action_pressed("move_right")):
 		dir += camera.get_global_transform().basis[0]
+		walking =true
 
 	dir.y = 0
 	dir = dir.normalized()
 	var t = mesh.get_transform()
 	var rotTransform = t.looking_at(-dir,Vector3(0,1,0))
-
 	mesh.set_transform(rotTransform)
-
-
 	velocity.y += delta * gravity
-
 	var hv = velocity
 	hv.y = 0
-
 	var new_pos = dir * SPEED
 	var accel = DE_ACCELERATION
-
 	if (dir.dot(hv) > 0):
 		accel = ACCELERATION
 
 	hv = hv.linear_interpolate(new_pos, accel * delta)
-
 	velocity.x = hv.x
 	velocity.z = hv.z
 
 	velocity = move_and_slide(velocity, Vector3(0,1,0))
+	if walking:
+		$sfxWalk.playing = true
+	else:
+		$sfxWalk.playing = false
 
 func enter_poo(body):
 	print("poo body entered")
 	if equiped != null:
 		if equiped.is_in_group("pitchfork"):
 			interactable = body
-			label.set_text("Press [ACTION] to clean up the poo!")
+			label.set_text("Press ACTION to clean up the poo!")
 	else:
 		label.set_text("Pick up the pitchfork to clean the poo!")
 
@@ -141,13 +147,18 @@ func enter_gras(body):
 
 func enter_cow(body):
 	print(" cow body entered")
-	label.set_text("press [ACTION] to feed %s" % body.name);
+	if body.has_milk():
+		label.set_text("press ACTION to milk cow %s " % body.name);
+	elif not body.is_hungry():
+		label.set_text("wait for cow %s to poo before milking!" % body.name);
+	else:
+		label.set_text("Cow %s is hungry feed her some gras!" % body.name);
 	interactable = body
 	pass
 
 func enter_tool(body):
 	print("tool body entered")
-	label.set_text("press [ACTION] to pick up %s" % body.name);
+	label.set_text("press ACTION to pick up %s" % body.name);
 	interactable = body
 	pass
 
@@ -156,7 +167,7 @@ func enter_grasland(body):
 	if equiped != null:
 		if equiped.is_in_group( "sickle"):
 			interactable = body
-			label.set_text("Press [ACTION] to harvest gras!")
+			label.set_text("Press ACTION to harvest gras!")
 	else:
 		label.set_text("Pick up the s	ickle to cut the gras!")
 	interactable = body
@@ -167,7 +178,7 @@ func enter_dungheap(body):
 	if equiped != null:
 		if equiped.is_in_group( "sickle"):
 			interactable = body
-			label.set_text("Press [ACTION] to harvest gras!")
+			label.set_text("Press ACTION to harvest gras!")
 	else:
 		label.set_text("Pick up the s	ickle to cut the gras!")
 	interactable = body
@@ -188,12 +199,13 @@ func drop_stack():
 	var x = stack.pop_back()
 	x.drop()
 	x.set_axis_velocity(Vector3.UP)
+	$sfxDrop.play()
 	pass
 
 func pick_up_tool(body):
 	if equiped != null:
 		drop_tool()
-		
+	$sfxPickupTool.play()
 	equiped = body
 	body.pick_up()
 	print("pick up tool %s" % body.name)
@@ -201,6 +213,7 @@ func pick_up_tool(body):
 	
 func drop_tool():
 	print("drop %s !" % equiped.name)
+	$sfxDropTool.play()
 	equiped.set_axis_velocity(Vector3.UP)
 	equiped.drop()
 	equiped = null;
@@ -209,12 +222,13 @@ func drop_tool():
 
 func pick_to_carry(body):
 	print("pick_to_carry %s" % body.name)
+	$sfxPickup.play()
 	if body.is_in_group("milkcan"):
 		label.set_text("Bring the milk to the kitchen to feed the Family");
 	if body.is_in_group("poo"):
 		label.set_text("Bring the poo to the dungheap to keep cows healthy!");
 
-	if stack.size() < 1:
+	if stack.size() < 1 or (stack.size() < 3 and body.is_in_group("poo")):
 		body.pick_up()
 		stack.push_back(body)
 	pass

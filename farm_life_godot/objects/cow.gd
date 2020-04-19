@@ -50,7 +50,9 @@ func tick():
 	pass
 
 func make_poo():
-	print("poooooooooooooo")
+	print("poooooooooooooo")	
+	$sfxPoo.play()
+	
 	var poo = pooScene.instance()
 	poo.set_global_transform($poo_spawn.get_global_transform())
 	get_tree().get_root().add_child(poo)
@@ -59,41 +61,58 @@ func make_poo():
 func enter_gras(body):
 	if hungry:
 		foodQueue += 1
+		get_node("/root/globals").cowFed += 1
+		$sfxEat.play()
 		body.queue_free()
 	pass
+
+func has_milk():
+	return milkAvailable
+
+func is_hungry():
+	return hungry
 
 func hungryText():
 	if hungry:
 		return "is hungry"
 	else:
-		return ""
+		return "is digesting... %d/10" % ((pooTimer/POO_INTERVAL)*10)
 	pass
 	
 func make_text():
-	return "cow %s health: %d/100 [%d, %d ]" % [hungryText(), health ,foodQueue, pooTimer]
+	var status = hungryText()
+	if milkAvailable:
+		status = "has milk"
+		if hungry:
+			status = "%s and is hungry" % status
+	return "%s %s h:%d/100" % [name, status, health]
 	pass
 	
 func die():
 	print("cow die")
-	queue_free();
-	
-	yield(get_tree().create_timer(0.1), "timeout")
+	$sfxDie.play()
 
 	var milk = milkcanScene.instance()
 	milk.set_global_transform(get_global_transform())
 	get_tree().get_root().add_child(milk)
+	
+	yield(get_tree().create_timer(2), "timeout")
+	queue_free();
 	pass
 
 func exit_area(body):
 	pass
 
 func milk_action(body):
-	print("milk_action")
-	milkAvailable = false
-	var milk = milkcanScene.instance()
-	milk.set_global_transform($milk_spawn.get_global_transform())
-	get_tree().get_root().add_child(milk)
-	pass
+	if has_milk():
+		print("milk_action")
+		milkAvailable = false
+		$sfxMilk.play()
+		var milk = milkcanScene.instance()
+		milk.set_global_transform($milk_spawn.get_global_transform())
+		get_tree().get_root().add_child(milk)
+		
+		pass
 
 
 func _on_Area_body_entered(body):

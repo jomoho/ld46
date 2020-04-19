@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://ttf/Farm to Market Bold Demo.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://ttf/farm_to_market_20.tres" type="DynamicFont" id=2]
+[ext_resource path="res://ttf/atype_20.tres" type="DynamicFont" id=2]
 [ext_resource path="res://ttf/farm_to_market_fancy_127.tres" type="DynamicFont" id=3]
 [ext_resource path="res://scenes/start/start_menu.gd" type="Script" id=4]
 
@@ -34,12 +34,12 @@ margin_right = 1025.0
 margin_bottom = 481.0
 theme = SubResource( 1 )
 custom_fonts/font = ExtResource( 2 )
-text = "You inherited the farm with 2 Cows!
+text = "You inherited the farm with 2 Cows Erna and Emma!
 Now you have to keep them alive, so you can feed your family.
 
-*** Harvest Gras to Feed The Cows ***
-*** collect the poo to prevent cows from getting sick ***
-*** milk the cows and bring the milk to The kitchen, to keep your family fed ***"
+1. Harvest GRAS to feed the cows.
+2. Discard  the poo at the DUNGHEAP to prevent cows from getting sick.
+3. Milk the cows and bring the MILKCANs to the KITCHEN, to keep your family fed."
 align = 1
 valign = 1
 __meta__ = {

@@ -1,21 +1,16 @@
 extends Node2D
 
+export var game_over = false
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	if game_over:
+		load_stats()
+	pass 
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
+func load_stats():
+	$stats.set_text( "Stats: %s" % get_node("/root/globals").get_stats())
+	pass
 
 func _on_StartButton_pressed():
 	get_tree().change_scene("res://scenes/farm/farm_level.tscn")
-	pass # Replace with function body.
+	pass 
