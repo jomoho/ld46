@@ -75,10 +75,11 @@ func _process(_delta):
 				if interactable.is_in_group('poo'):
 					if equiped.is_in_group('pitchfork'):
 						if not animTree.get("parameters/cleanup/active"):
-							animTree.set("parameters/harvest/active", true)
+							var poo = interactable
+							animTree.set("parameters/cleanup/active", true)
 							yield(get_tree().create_timer(1), "timeout")
-							animTree.set("parameters/harvest/active", false)
-							pick_to_carry(interactable)
+							animTree.set("parameters/cleanup/active", false)
+							pick_to_carry(poo)
 							
 				elif interactable.is_in_group( 'can_carry'):
 					pick_to_carry(interactable)

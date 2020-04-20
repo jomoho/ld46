@@ -1,14 +1,19 @@
 extends "carry.gd"
 
 const POO_INTERVAL = 20
+const HUNGER_INTERVAL = 40
 const TICK_INTERVAL = 2
 
 var foodQueue = 0
 var hungry = true
-var milkAvailable = 0
+var milkAvailable = 1
 var pooTimer = 0
+var hungerTimer = 0
 var health = 100
 var tickCounter = 0;
+
+export(NodePath)  var animTreePath
+var animTree
 
 var pooScene
 var milkcanScene
@@ -16,21 +21,27 @@ var deadCowSene
 
 func _process(_delta):
 	tickCounter += _delta
+	hungerTimer += _delta
 	if tickCounter >= TICK_INTERVAL:
 		tickCounter = 0;
-		tick()
-	hungry = true
+		tick()	
 	if foodQueue > 0:
-		hungry = false
+		hungerTimer = 0
 		pooTimer += _delta
 		if pooTimer > POO_INTERVAL:
 			make_poo()
 			milkAvailable = true
 			pooTimer = 0;
 			foodQueue -=1;
+	hungry = false;
+	if hungerTimer > HUNGER_INTERVAL:
+		hungry = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	animTree = get_node(animTreePath)
+	
 	pooScene = load("res://objects/poo.tscn")
 	milkcanScene = load("res://objects/milkcan.tscn")
 	deadCowSene = load("res://objects/milkcan.tscn")
@@ -55,15 +66,22 @@ func make_poo():
 	
 	var poo = pooScene.instance()
 	poo.set_global_transform($poo_spawn.get_global_transform())
+	
+	animTree.set("parameters/poo/active", true)
+	yield(get_tree().create_timer(0.5), "timeout")
 	get_tree().get_root().add_child(poo)
 	pass
 
 func enter_gras(body):
-	if hungry:
+	if pooTimer < POO_INTERVAL:
 		foodQueue += 1
+		health += 50
 		get_node("/root/globals").cowFed += 1
 		$sfxEat.play()
 		body.queue_free()
+		animTree.set("parameters/eat/active", true)
+		yield(get_tree().create_timer(3), "timeout")
+		animTree.set("parameters/eat/active", false)
 	pass
 
 func has_milk():
@@ -72,20 +90,20 @@ func has_milk():
 func is_hungry():
 	return hungry
 
-func hungryText():
+func hungry_text():
 	if hungry:
 		return "is hungry"
-	else:
+	elif foodQueue > 0:
 		return "is digesting... %d/10" % ((pooTimer/POO_INTERVAL)*10)
+	else:
+		return "is statisfied.. %d" % (100-((hungerTimer/HUNGER_INTERVAL)*100))
 	pass
 	
 func make_text():
-	var status = hungryText()
+	var status = hungry_text()
 	if milkAvailable:
-		status = "has milk"
-		if hungry:
-			status = "%s and is hungry" % status
-	return "%s %s h:%d/100" % [name, status, health]
+		status = "has milk and %s " % status;
+	return "%s %s \nh:%d/100" % [name, status, health]
 	pass
 	
 func die():
@@ -96,6 +114,7 @@ func die():
 	milk.set_global_transform(get_global_transform())
 	get_tree().get_root().add_child(milk)
 	
+	animTree.set("parameters/die/active", true)
 	yield(get_tree().create_timer(2), "timeout")
 	queue_free();
 	pass
