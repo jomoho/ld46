@@ -238,7 +238,7 @@ func exit_area(body):
 		if interactable.get_instance_id() == body.get_instance_id():
 			label.set_text("")
 			if equiped != null:
-				label.set_text("press [DROP] to drop %s" % equiped.name)
+				label.set_text("press DROP to drop %s" % equiped.name)
 			interactable = null
 	pass
 

@@ -35,8 +35,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Viewport" type="Viewport" parent="GUI"]
-
 [node name="status" type="Label" parent="GUI"]
 margin_right = 851.0
 margin_bottom = 58.9996
@@ -426,8 +424,62 @@ growTime = 30
 
 [node name="grasland9" parent="graslandAnchor4" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18.9067, 0.177489, -7.62905 )
+
+[node name="pause_popup" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="pause_popup"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -100.0
+margin_right = 200.0
+margin_bottom = 100.0
+color = Color( 1, 1, 1, 0.611765 )
+
+[node name="Label" type="Label" parent="pause_popup/ColorRect"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -20.0
+margin_top = 16.0
+margin_right = 20.0
+margin_bottom = 21.0
+text = "Pause"
+
+[node name="ContinueButton" type="Button" parent="pause_popup/ColorRect"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -50.0
+margin_top = -32.0
+margin_right = 50.0
+margin_bottom = -16.0
+
+[node name="Label" type="Label" parent="pause_popup/ColorRect/ContinueButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Continue"
+align = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="pause_popup/ColorRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
 [connection signal="body_entered" from="dungheapArea" to="." method="_on_dungheap_body_entered"]
 [connection signal="body_entered" from="kitchenArea" to="." method="_on_kitchenArea_body_entered"]
+[connection signal="pressed" from="pause_popup/ColorRect/ContinueButton" to="." method="_on_ContinueButton_pressed"]
 
 [editable path="Player"]
 

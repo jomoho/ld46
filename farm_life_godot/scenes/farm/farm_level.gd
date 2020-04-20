@@ -25,6 +25,9 @@ func _process(_delta):
 		tickCounter = 0;
 		tick()
 
+	if(Input.is_action_pressed("pause")):
+		_on_pause_button_pressed()
+	
 	hungry = true
 	if feedingCounter < MILK_FEED_TIME and feedingCounter > 0:
 		hungry =false
@@ -34,6 +37,8 @@ func _process(_delta):
 func _ready():
 	player = get_node("Player")
 	get_node("/root/globals").reset()
+	$pause_popup.hide()
+	$pause_popup.pause_mode = Node.PAUSE_MODE_PROCESS
 	pass
 
 func tick():
@@ -54,9 +59,9 @@ func _on_dungheap_body_entered(body):
 	if body.is_in_group("poo"):
 		if body.isCarried:
 			body.transporter_unload_stack()
-			
+
 		get_node("/root/globals").pooCleaned += 1
-		body.get_node("sfxDelete").play()		
+		body.get_node("sfxDelete").play()
 		yield(get_tree().create_timer(2), "timeout")
 		body.queue_free();
 		yield(get_tree().create_timer(0.3), "timeout")
@@ -67,13 +72,13 @@ func feed_family():
 	feedingCounter = 0
 	print("feed family")
 	player.get_node("sfxFeeding").play()
-	
+
 	get_node("/root/globals").familyFed += 1
 	pass
 
 func game_over():
 	print("game over!")
-	get_node("/root/globals").timeAlive = timeAlive	
+	get_node("/root/globals").timeAlive = timeAlive
 	get_tree().change_scene("res://scenes/game_over/game_over.tscn")
 	pass
 
@@ -84,8 +89,18 @@ func _on_kitchenArea_body_entered(body):
 		if body.isCarried:
 			body.transporter_unload_stack()
 		body.queue_free();
-		
+
 
 		yield(get_tree().create_timer(0.3), "timeout")
 		player.label.set_text("You fed the family!")
+	pass # Replace with function body.
+	
+func _on_pause_button_pressed():
+	get_tree().paused = true
+	$pause_popup.show()
+
+
+func _on_ContinueButton_pressed():
+	$pause_popup.hide()
+	get_tree().paused = false
 	pass # Replace with function body.

@@ -26,9 +26,9 @@ func unload_from_stack(item):
 	if stack.size() > 0:		
 		for i in range(stack.size()):
 			if stack[i].get_instance_id() == item.get_instance_id():
-				stack.remove(i)
-				i +=1
+				stack.remove(i)				
 				item.drop()	
+				break
 		
 	pass
 	
@@ -44,7 +44,8 @@ func _process(_delta):
 func _on_Area_body_entered(body):
 	print("wheelbarrow entered")
 	print(body.name)
-	body.enter_wheelbarrow(self)
+	if body.is_in_group("player"):
+		body.enter_wheelbarrow(self)
 	pass
 	
 func _on_Area_body_exited(body):
