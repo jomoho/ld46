@@ -20,8 +20,14 @@ var gravity = -9.8
 var velocity = Vector3()
 export(NodePath)  var cameraPath
 export(NodePath)  var meshPath
+export(NodePath)  var animTreePath
+export(NodePath)  var skeletonPath
+
 var camera
 var mesh
+var animTree
+var skeleton
+var rightHandBoneId
 
 const SPEED = 6
 const ACCELERATION = 3
@@ -34,6 +40,10 @@ func _ready():
 	labelAnchor = get_node("LabelAnchor")
 	camera = get_node(cameraPath)
 	mesh = get_node(meshPath)
+	animTree = get_node(animTreePath)
+	skeleton = get_node(skeletonPath)
+	rightHandBoneId = skeleton.find_bone("defhand_r")
+
 
 	equipedAnchor = get_node("farmer_rig/equiped_anchor")
 	carryAnchor = get_node("farmer_rig/carry_anchor")
@@ -64,28 +74,45 @@ func _process(_delta):
 				print(interactable.name)
 				if interactable.is_in_group('poo'):
 					if equiped.is_in_group('pitchfork'):
-						pick_to_carry(interactable)
+						if not animTree.get("parameters/cleanup/active"):
+							animTree.set("parameters/harvest/active", true)
+							yield(get_tree().create_timer(1), "timeout")
+							animTree.set("parameters/harvest/active", false)
+							pick_to_carry(interactable)
+							
 				elif interactable.is_in_group( 'can_carry'):
 					pick_to_carry(interactable)
-				if interactable.is_in_group('cow'):
+				elif interactable.is_in_group('cow'):
 					milk_cow(interactable)
-				if interactable.is_in_group('grasland'):
+				elif interactable.is_in_group('grasland'):
 					if equiped != null:
 						if equiped.is_in_group( 'sickle'):
-							#TODO: play harvest oneshot
-							interactable.harvest_hit()
-				if interactable.is_in_group('tool'):
+							if interactable.harvest_hit():
+								if not animTree.get("parameters/harvest/active"):
+									animTree.set("parameters/harvest/active", true)
+									yield(get_tree().create_timer(1), "timeout")
+									animTree.set("parameters/harvest/active", false)
+				elif interactable.is_in_group('tool'):
 					pick_up_tool(interactable)
 
 	if equiped != null:
-		equiped.set_global_transform(equipedAnchor.get_global_transform())
+		equiped.set_global_transform(right_hand())
 
+	var carry = false
 	for i in range(stack.size()):
 		if stack[i].is_in_group("poo"):
 			stack[i].set_transform(pooAnchor.get_global_transform())
 		else:
+			carry = true
 			stack[i].set_transform(carryAnchor.get_global_transform())
+	if carry:
+		animTree.set("parameters/carry/blend_amount", 1)
+	else:
+		animTree.set("parameters/carry/blend_amount", 0)
+	pass
 
+func right_hand():
+	return equipedAnchor.get_global_transform() #transform.xform(skeleton.get_bone_global_pose(rightHandBoneId))
 
 
 
@@ -123,6 +150,9 @@ func _physics_process(delta):
 	velocity.z = hv.z
 
 	velocity = move_and_slide(velocity, Vector3(0,1,0))
+	animTree.set("parameters/idle-walk/blend_amount", velocity.length()/SPEED)
+	animTree.set("parameters/walk-speed/scale", 0.5*(velocity.length()))
+	
 	if walking:
 		$sfxWalk.playing = true
 	else:

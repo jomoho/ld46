@@ -46,6 +46,8 @@ func harvest_hit():
 			var gras = grasScene.instance()
 			gras.set_global_transform($spawn.get_global_transform())
 			get_tree().get_root().add_child(gras)
+		return true
+	return false
 
 
 func make_text():
