@@ -26,8 +26,8 @@ extents = Vector3( 63.6518, 1, 64.2243 )
 script = ExtResource( 2 )
 
 [node name="GUI" type="Control" parent="."]
-margin_right = 100.0
-margin_bottom = 100.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 rect_scale = Vector2( 0.959999, 1 )
 script = ExtResource( 12 )
 __meta__ = {
@@ -37,14 +37,8 @@ __meta__ = {
 [node name="Viewport" type="Viewport" parent="GUI"]
 
 [node name="status" type="Label" parent="GUI"]
-anchor_left = -0.525
-anchor_top = -0.775
-anchor_right = -0.525
-anchor_bottom = -0.775
-margin_left = 60.4317
-margin_top = 99.4144
-margin_right = 911.432
-margin_bottom = 158.414
+margin_right = 851.0
+margin_bottom = 58.9996
 custom_fonts/font = ExtResource( 11 )
 text = "status text"
 autowrap = true
@@ -56,11 +50,10 @@ __meta__ = {
 [node name="status2" type="Label" parent="GUI"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = 648.581
-margin_top = 21.6059
-margin_right = 940.581
-margin_bottom = 105.606
+margin_left = -292.0
+margin_bottom = 84.0001
 custom_fonts/font = ExtResource( 11 )
+custom_constants/shadow_as_outline = 1
 text = "ARROW keys or WASD to move
 ACTION is LMB or E
 DROP is RMB or Q"
