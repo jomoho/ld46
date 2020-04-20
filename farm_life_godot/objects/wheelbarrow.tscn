@@ -1,0 +1,64 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://ttf/atype_16.tres" type="DynamicFont" id=1]
+[ext_resource path="res://objects/wheelbarrow.gd" type="Script" id=2]
+[ext_resource path="res://models/items/wheelbarrow.mesh" type="ArrayMesh" id=3]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 2.15085, 0.205654, 4 )
+
+[node name="wheelbarrow" type="RigidBody" groups=[
+"wheelbarrow",
+]]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0 )
+mass = 10.0
+script = ExtResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = ExtResource( 3 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 0.121, 0, 0, 0, 1.379, 0, 0, 0, 0.099, 0, 0.294, 0 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="."]
+transform = Transform( 0.273, 0, 0, 0, 1.007, 0, 0, 0, 0.277, 0, 0.185, 0.959 )
+shape = SubResource( 1 )
+
+[node name="Area" type="Area" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+transform = Transform( 0.5, 0, 0, 0, 1.533, 0, 0, 0, 0.437, 0, 0.442, 1.206 )
+shape = SubResource( 1 )
+
+[node name="LabelAnchor" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.30461, 0 )
+
+[node name="transportAnchor1" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.288239, 0.480764, 0.705993 )
+
+[node name="transportAnchor2" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.300533, 0.480764, 0.705993 )
+
+[node name="transportAnchor4" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.288239, 0.495901, 1.46472 )
+
+[node name="transportAnchor3" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.300533, 0.480764, 1.46472 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 86.0
+margin_top = 45.0
+margin_right = 132.0
+margin_bottom = 59.0
+custom_fonts/font = ExtResource( 1 )
+text = "wheelbarrow"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
+[connection signal="body_exited" from="Area" to="." method="_on_Area_body_exited"]

@@ -1,4 +1,4 @@
-extends "carry.gd"
+extends "carry _rigidbody.gd"
 
 
 func _on_Area_body_entered(body):

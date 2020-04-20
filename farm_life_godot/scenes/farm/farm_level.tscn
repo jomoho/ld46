@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://models/farm_land.gltf" type="PackedScene" id=1]
 [ext_resource path="res://scenes/farm/farm_level.gd" type="Script" id=2]
@@ -15,9 +15,10 @@
 [ext_resource path="res://objects/carry.gd" type="Script" id=13]
 [ext_resource path="res://ttf/atype_32.tres" type="DynamicFont" id=14]
 [ext_resource path="res://sound/sfx/kitchen_loop.ogg" type="AudioStream" id=15]
+[ext_resource path="res://objects/wheelbarrow.tscn" type="PackedScene" id=16]
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 6, 6.25897, 5.62736 )
+extents = Vector3( 7, 6.25897, 7 )
 
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 63.6518, 1, 64.2243 )
@@ -109,6 +110,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 21.4947, 0.57472, 22.9983 )
 [node name="gras3" parent="." instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 21.4947, 0.57472, 21.9983 )
 
+[node name="gras4" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15.2495, 1.05916, 12.7331 )
+
 [node name="pitchfork" parent="." instance=ExtResource( 6 )]
 transform = Transform( 0.639144, 0, -0.769087, 0, 1, 0, 0.769087, 0, 0.639144, 22.0439, 1.83525, 30.2141 )
 
@@ -117,6 +121,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.0126, 0.318658, 6.43607 )
 
 [node name="milkcan" parent="." instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.3649, 0.318658, 23.6502 )
+
+[node name="wheelbarrow" parent="." instance=ExtResource( 16 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13, 0, 11 )
 
 [node name="dungheapLabel" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.4928, 3.96935, 39.6368 )
@@ -216,7 +223,7 @@ __meta__ = {
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.76181, 0, 40.3724 )
 
 [node name="CollisionShape" type="CollisionShape" parent="dungheapArea"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.457989, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45799, 0, -1 )
 shape = SubResource( 1 )
 
 [node name="kitchenArea" type="Area" parent="." groups=[

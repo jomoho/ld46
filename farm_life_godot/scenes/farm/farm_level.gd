@@ -53,7 +53,7 @@ func tick():
 func _on_dungheap_body_entered(body):
 	if body.is_in_group("poo"):
 		if body.isCarried:
-			player.drop_stack()
+			body.transporter_unload_stack()
 			
 		get_node("/root/globals").pooCleaned += 1
 		body.get_node("sfxDelete").play()		
@@ -82,7 +82,7 @@ func _on_kitchenArea_body_entered(body):
 	if body.is_in_group("milkcan"):
 		feed_family()
 		if body.isCarried:
-			player.drop_stack()
+			body.transporter_unload_stack()
 		body.queue_free();
 		
 

@@ -41,6 +41,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.694281, 1.44641, 0.0441089 
 [node name="poo_anchor" type="Spatial" parent="farmer_rig"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.694281, 2.67492, 0.0441089 )
 
+[node name="wheelbarrow_anchor" type="Spatial" parent="farmer_rig"]
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0, 2.48635 )
+
 [node name="target" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.81646, 0.228784 )
 

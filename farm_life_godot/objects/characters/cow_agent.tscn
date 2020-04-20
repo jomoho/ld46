@@ -46,7 +46,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.05057, 0.181473 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10694, -0.981687 )
 
 [node name="milk_spawn" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.65996, 1.10694, 1.07901 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.107, 2.06341 )
 
 [node name="Area" type="Area" parent="."]
 
@@ -71,5 +71,6 @@ stream = ExtResource( 7 )
 [node name="sfxEat" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 8 )
 [connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
+[connection signal="body_exited" from="Area" to="." method="_on_Area_body_exited"]
 
 [editable path="cow"]

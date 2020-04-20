@@ -115,7 +115,7 @@ func die():
 	get_tree().get_root().add_child(milk)
 	
 	animTree.set("parameters/die/active", true)
-	yield(get_tree().create_timer(2), "timeout")
+	yield(get_tree().create_timer(1), "timeout")
 	queue_free();
 	pass
 
@@ -139,3 +139,8 @@ func _on_Area_body_entered(body):
 		body.enter_cow(self)
 	pass
 	pass # Replace with function body.
+
+
+func _on_Area_body_exited(body):
+	body.exit_area(self)
+	pass

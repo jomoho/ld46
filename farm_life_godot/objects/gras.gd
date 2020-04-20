@@ -1,5 +1,5 @@
 # GRAS
-extends  "./carry.gd"
+extends  "carry _rigidbody.gd"
 
 func _on_Area_body_entered(body):
 	print("gras entered")
@@ -10,4 +10,5 @@ func _on_Area_body_entered(body):
 func _on_Area_body_exited(body):
 	body.exit_area(self)
 	pass
+
 

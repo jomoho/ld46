@@ -1,5 +1,5 @@
 # Carry
-extends Spatial
+extends RigidBody
 
 
 const  MAX_LABEL_DISTANCE = 30
@@ -58,7 +58,7 @@ func exit_area(body):
 	
 func pick_up():
 	isCarried = true
-	
+	set_mode(RigidBody.MODE_CHARACTER)
 	if disableCollision:
 		get_node("Area/CollisionShape").disabled = true;
 		print("disabled CollisionShape %s" % name)
@@ -67,6 +67,7 @@ func pick_up():
 func drop():
 	isCarried = false
 	transporter = null
+	set_mode(RigidBody.MODE_RIGID)
 	get_node("Area/CollisionShape").disabled = false;
 	print("enabled CollisionShape %s", name)
 	pass

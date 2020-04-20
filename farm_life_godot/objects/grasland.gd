@@ -1,4 +1,4 @@
-extends "tool.gd"
+extends "carry.gd"
 
 const MAX_GROW_TIME = 30
 const MAX_HITS = 5
