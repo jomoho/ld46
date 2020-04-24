@@ -48,7 +48,7 @@ func _ready():
 	pass
 
 func tick():
-	print("tick cow %s" % name);
+	#print("tick cow %s" % name);
 	if hungry:
 		health -= 1
 	else:
@@ -61,7 +61,7 @@ func tick():
 	pass
 
 func make_poo():
-	print("poooooooooooooo")	
+	print("%s : poooooooooooooo" % name)	
 	$sfxPoo.play()
 	
 	var poo = pooScene.instance()
@@ -125,7 +125,8 @@ func exit_area(body):
 func milk_action(body):
 	if has_milk():
 		print("milk_action")
-		milkAvailable = false
+		milkAvailable = false		
+		get_node("/root/globals").cowMilked += 1
 		$sfxMilk.play()
 		var milk = milkcanScene.instance()
 		milk.set_global_transform($milk_spawn.get_global_transform())
@@ -142,5 +143,6 @@ func _on_Area_body_entered(body):
 
 
 func _on_Area_body_exited(body):
-	body.exit_area(self)
+	if body.is_in_group("player"):
+		body.exit_area(self)
 	pass

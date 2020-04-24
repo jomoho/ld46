@@ -46,10 +46,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.288239, 0.495901, 1.46472 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.300533, 0.480764, 1.46472 )
 
 [node name="Label" type="Label" parent="."]
-margin_left = 86.0
-margin_top = 45.0
-margin_right = 132.0
-margin_bottom = 59.0
+margin_left = -251.962
+margin_top = 92.6002
+margin_right = -143.962
+margin_bottom = 113.6
 custom_fonts/font = ExtResource( 1 )
 text = "wheelbarrow"
 uppercase = true

@@ -47,6 +47,7 @@ func _ready():
 	animTree = get_node(animTreePath)
 	skeleton = get_node(skeletonPath)
 	rightHandBoneId = skeleton.find_bone("defhand_r")
+	print("right hand bone: %d"% rightHandBoneId)
 
 
 	equipedAnchor = get_node("farmer_rig/equiped_anchor")
@@ -109,7 +110,7 @@ func _process(_delta):
 					pick_up_tool(interactable)
 
 	if equiped != null:
-		equiped.set_global_transform(right_hand())
+		equiped.set_transform(right_hand())
 
 	var carry = false
 	for i in range(stack.size()):
@@ -124,10 +125,15 @@ func _process(_delta):
 		animTree.set("parameters/carry/blend_amount", 0)
 	if drive and wheelbarrow != null:
 		wheelbarrow.set_transform(wheelbarrowAnchor.get_global_transform())
+		#$farmer_rig/joint.node_b_path = wheelbarrow.get_path()
 	pass
 
 func right_hand():
-	return equipedAnchor.get_global_transform() #transform.xform(skeleton.get_bone_global_pose(rightHandBoneId))
+	var rht = skeleton.get_bone_pose(rightHandBoneId)
+	var t = mesh.get_global_transform()
+	return rht *t
+	#transform.xform(skeleton.get_bone_global_pose(rightHandBoneId))
+	#return equipedAnchor.get_global_transform() #transform.xform(skeleton.get_bone_global_pose(rightHandBoneId))
 
 
 
@@ -219,13 +225,11 @@ func enter_grasland(body):
 	pass
 
 func enter_dungheap(body):
-	print("grasland body entered")
-	if equiped != null:
-		if equiped.is_in_group( "sickle"):
-			interactable = body
-			label.set_text("Press ACTION to harvest gras!")
+	print("dungheap body entered")
+	if stack.size() == 0:
+		label.set_text("Pick up the pitchform to clean the poo!")
 	else:
-		label.set_text("Pick up the s	ickle to cut the gras!")
+		label.set_text("Cleaning the poo... cows will be happy!")
 	interactable = body
 	pass
 
@@ -292,9 +296,9 @@ func milk_cow(body):
 func enter_wheelbarrow(body):
 	wheelbarrow = body
 	if stack.size() > 0:
-		label.set_text("press DROP to load item into wheelbarrow!")
+		label.set_text("Press DROP to load item into wheelbarrow!")
 	elif wheelbarrow.is_loaded():
-		label.set_text("press DROP to unload item\nand ACTION to drive")
+		label.set_text("Press DROP to unload item\nand ACTION to drive")
 	else:
 		label.set_text("Load up some stuff to be more efficient!")
 		

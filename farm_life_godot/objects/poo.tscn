@@ -1,11 +1,52 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://objects/poo.gd" type="Script" id=1]
 [ext_resource path="res://models/items/poo.mesh" type="ArrayMesh" id=2]
 [ext_resource path="res://sound/sfx/Auto #9.ogg" type="AudioStream" id=3]
 [ext_resource path="res://ttf/atype_16.tres" type="DynamicFont" id=4]
+[ext_resource path="res://materials/brown.material" type="Material" id=5]
 
-[sub_resource type="BoxShape" id=1]
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0.0025641, 1 )
+colors = PoolColorArray( 0.458824, 0.407843, 0.376471, 1, 0.843137, 0.572549, 0.152941, 0.203922 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0, 0.540909 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
+
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0.00622665, 0.9 ), 0.0, 0.764762, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=6]
+curve = SubResource( 5 )
+
+[sub_resource type="ParticlesMaterial" id=7]
+lifetime_randomness = 0.69
+trail_size_modifier = SubResource( 6 )
+emission_shape = 1
+emission_sphere_radius = 0.69
+direction = Vector3( 0, 5, 0 )
+spread = 180.0
+flatness = 0.2
+gravity = Vector3( 0, -7.429, 0 )
+initial_velocity = 7.32
+initial_velocity_random = 0.22
+damping = 10.93
+scale = 0.36
+scale_random = 0.35
+scale_curve = SubResource( 4 )
+color_ramp = SubResource( 2 )
+hue_variation_random = 0.92
+
+[sub_resource type="CubeMesh" id=8]
+material = ExtResource( 5 )
+
+[sub_resource type="BoxShape" id=9]
 extents = Vector3( 1.55306, 1, 1.39888 )
 
 [node name="poo" type="RigidBody" groups=[
@@ -17,13 +58,26 @@ mass = 10.0
 script = ExtResource( 1 )
 disableCollision = false
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
+[node name="poo_explosion" type="Particles" parent="."]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
+emitting = false
+amount = 21
+lifetime = 0.53
+one_shot = true
+speed_scale = 1.3
+explosiveness = 0.2
+randomness = 0.97
+visibility_aabb = AABB( -5, -4, -4, 10, 8, 8 )
+process_material = SubResource( 7 )
+draw_pass_1 = SubResource( 8 )
+
+[node name="mesh" type="MeshInstance" parent="."]
 mesh = ExtResource( 2 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
-shape = SubResource( 1 )
+shape = SubResource( 9 )
 
 [node name="Area" type="Area" parent="."]
 collision_layer = 2
@@ -31,16 +85,20 @@ collision_mask = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
-shape = SubResource( 1 )
+shape = SubResource( 9 )
 
 [node name="LabelAnchor" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.300306, 0 )
 
 [node name="Label" type="Label" parent="."]
-margin_left = 58.0
-margin_top = 95.0
-margin_right = 104.0
-margin_bottom = 109.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -616.0
+margin_top = -26.0
+margin_right = -554.0
+margin_bottom = -5.0
 custom_fonts/font = ExtResource( 4 )
 text = "Poo"
 __meta__ = {

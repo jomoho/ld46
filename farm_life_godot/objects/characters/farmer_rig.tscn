@@ -1566,6 +1566,7 @@ filters = [ "farmer_rig/Skeleton:defforearm_l", "farmer_rig/Skeleton:defforearm_
 [sub_resource type="AnimationNodeTimeScale" id=13]
 
 [sub_resource type="AnimationNodeBlendTree" id=14]
+graph_offset = Vector2( 0, 63.5 )
 nodes/Animation/node = SubResource( 7 )
 nodes/Animation/position = Vector2( 160, 60 )
 "nodes/Animation 2/node" = SubResource( 2 )
@@ -1591,7 +1592,7 @@ nodes/milk/position = Vector2( 1160, 100 )
 nodes/output/position = Vector2( 1340, 40 )
 nodes/walk-speed/node = SubResource( 13 )
 nodes/walk-speed/position = Vector2( 200, 320 )
-node_connections = [ "output", 0, "milk", "carry", 0, "idle-walk", "carry", 1, "Animation", "cleanup", 0, "harvest", "cleanup", 1, "Animation 5", "harvest", 0, "carry", "harvest", 1, "Animation 4", "idle-walk", 0, "Animation 2", "idle-walk", 1, "walk-speed", "walk-speed", 0, "Animation 3", "milk", 0, "cleanup", "milk", 1, "Animation 6" ]
+node_connections = [ "output", 0, "milk", "carry", 0, "idle-walk", "carry", 1, "Animation", "cleanup", 0, "harvest", "cleanup", 1, "Animation 5", "harvest", 0, "carry", "harvest", 1, "Animation 4", "idle-walk", 0, "Animation 2", "idle-walk", 1, "walk-speed", "milk", 0, "cleanup", "milk", 1, "Animation 6", "walk-speed", 0, "Animation 3" ]
 
 [node name="farmer_player" type="Spatial"]
 

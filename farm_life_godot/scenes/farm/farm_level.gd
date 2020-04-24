@@ -3,7 +3,6 @@ extends Spatial
 const MILK_FEED_TIME = 30.0
 const TICK_INTERVAL = 2
 const MAX_FAMILY_HEALTH = 100
-
 var familyHealth = MAX_FAMILY_HEALTH
 
 var hungry = true
@@ -24,7 +23,7 @@ func _process(_delta):
 	if tickCounter >= TICK_INTERVAL:
 		tickCounter = 0;
 		tick()
-
+		
 	if(Input.is_action_pressed("pause")):
 		_on_pause_button_pressed()
 	
@@ -32,8 +31,8 @@ func _process(_delta):
 	if feedingCounter < MILK_FEED_TIME and feedingCounter > 0:
 		hungry =false
 		feedReserve = 1.0 - (feedingCounter/MILK_FEED_TIME)
+	pass
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	player = get_node("Player")
 	get_node("/root/globals").reset()
@@ -54,25 +53,20 @@ func tick():
 		game_over()
 	pass
 
-
 func _on_dungheap_body_entered(body):
 	if body.is_in_group("poo"):
 		if body.isCarried:
 			body.transporter_unload_stack()
-
 		get_node("/root/globals").pooCleaned += 1
-		body.get_node("sfxDelete").play()
-		yield(get_tree().create_timer(2), "timeout")
-		body.queue_free();
-		yield(get_tree().create_timer(0.3), "timeout")
+		body.destroy_poo()
+		yield(get_tree().create_timer(0.5), "timeout")
 		player.label.set_text("You cleaned up the poo!")
-	pass # Replace with function body.
+	pass
 
 func feed_family():
 	feedingCounter = 0
 	print("feed family")
 	player.get_node("sfxFeeding").play()
-
 	get_node("/root/globals").familyFed += 1
 	pass
 
@@ -90,14 +84,14 @@ func _on_kitchenArea_body_entered(body):
 			body.transporter_unload_stack()
 		body.queue_free();
 
-
 		yield(get_tree().create_timer(0.3), "timeout")
 		player.label.set_text("You fed the family!")
-	pass # Replace with function body.
+	pass
 	
 func _on_pause_button_pressed():
 	get_tree().paused = true
 	$pause_popup.show()
+	pass
 
 
 func _on_ContinueButton_pressed():

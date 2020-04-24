@@ -1,0 +1,53 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://materials/brown.material" type="Material" id=1]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0.0025641, 1 )
+colors = PoolColorArray( 0.458824, 0.407843, 0.376471, 1, 0.843137, 0.572549, 0.152941, 0.203922 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
+
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0.00622665, 0.9 ), 0.0, 0.764762, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=6]
+curve = SubResource( 5 )
+
+[sub_resource type="ParticlesMaterial" id=7]
+lifetime_randomness = 0.69
+trail_size_modifier = SubResource( 6 )
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3( 0, 5, 0 )
+spread = 180.0
+flatness = 0.2
+gravity = Vector3( 0, -4.884, 0 )
+initial_velocity = 12.21
+initial_velocity_random = 0.22
+damping = 10.93
+scale = 0.36
+scale_random = 0.37
+scale_curve = SubResource( 4 )
+color_ramp = SubResource( 2 )
+hue_variation_random = 0.92
+
+[sub_resource type="CubeMesh" id=8]
+material = ExtResource( 1 )
+
+[node name="poo_explosion" type="Particles"]
+emitting = false
+amount = 21
+one_shot = true
+explosiveness = 0.2
+randomness = 0.97
+visibility_aabb = AABB( -5, -4, -4, 10, 8, 8 )
+process_material = SubResource( 7 )
+draw_pass_1 = SubResource( 8 )

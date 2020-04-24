@@ -29,6 +29,10 @@ script = ExtResource( 2 )
 [node name="GUI" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 0.0500031
+margin_top = 0.0500031
+margin_right = 43.05
+margin_bottom = 0.0499878
 rect_scale = Vector2( 0.959999, 1 )
 script = ExtResource( 12 )
 __meta__ = {
@@ -72,6 +76,14 @@ collision_mask = 7
 cameraPath = NodePath("../../farm_level/Player/camera_dolly/Camera")
 meshPath = NodePath("../../farm_level/Player/farmer_rig")
 
+[node name="Label" parent="Player" index="4"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = -701.001
+margin_top = 382.5
+margin_right = -283.001
+margin_bottom = 413.5
+
 [node name="RayCast" type="RayCast" parent="."]
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
@@ -94,6 +106,13 @@ collision_mask = 7
 transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 28.2972, 0, 28.464 )
 collision_layer = 7
 collision_mask = 7
+
+[node name="Label" parent="Erna " index="2"]
+anchor_bottom = 0.516
+margin_left = -493.001
+margin_top = 397.0
+margin_right = -467.001
+margin_bottom = 408.4
 
 [node name="farm_land" parent="." instance=ExtResource( 1 )]
 
@@ -133,10 +152,14 @@ ignoreDistanceCulling = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.304605, 0.430969 )
 
 [node name="Label" type="Label" parent="dungheapLabel"]
-margin_left = 21.0
-margin_top = 229.0
-margin_right = 130.0
-margin_bottom = 262.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -569.501
+margin_top = 378.0
+margin_right = -414.501
+margin_bottom = 418.0
 custom_fonts/font = ExtResource( 14 )
 text = "dungheap"
 align = 1
@@ -146,20 +169,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="graslandLabel" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -27.4928, 4.96935, -22.3632 )
+[node name="grasland" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5072, 4.86908, -18.3632 )
 script = ExtResource( 13 )
 dynamicText = false
 ignoreDistanceCulling = true
 
-[node name="LabelAnchor" type="Spatial" parent="graslandLabel"]
+[node name="LabelAnchor" type="Spatial" parent="grasland"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.304605, 0.430969 )
 
-[node name="Label" type="Label" parent="graslandLabel"]
-margin_left = 19.0
-margin_top = 187.0
-margin_right = 119.0
-margin_bottom = 220.0
+[node name="Label" type="Label" parent="grasland"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -567.001
+margin_top = 378.0
+margin_right = -417.001
+margin_bottom = 418.0
 custom_fonts/font = ExtResource( 14 )
 text = "grasland"
 align = 1
@@ -168,6 +195,186 @@ uppercase = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="graslandAnchor" type="Spatial" parent="grasland"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.4928, -4.96935, 18.3632 )
+
+[node name="grasland" parent="grasland/graslandAnchor" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.29716, 0.177489, -3.14595 )
+growTime = 30
+
+[node name="grasland2" parent="grasland/graslandAnchor" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.90666, 0.177489, -3.14595 )
+
+[node name="grasland4" parent="grasland/graslandAnchor" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.29716, 0.177489, -7.62905 )
+growTime = 30
+
+[node name="grasland3" parent="grasland/graslandAnchor" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.90666, 0.177489, -7.62905 )
+
+[node name="grasland8" parent="grasland/graslandAnchor" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2972, 0.177489, -3.14595 )
+growTime = 30
+
+[node name="grasland7" parent="grasland/graslandAnchor" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9067, 0.177489, -3.14595 )
+
+[node name="grasland6" parent="grasland/graslandAnchor" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2972, 0.177489, -7.62905 )
+growTime = 30
+
+[node name="grasland5" parent="grasland/graslandAnchor" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9067, 0.177489, -7.62905 )
+
+[node name="grasland12" parent="grasland/graslandAnchor" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23.2972, 0.177489, -3.14595 )
+growTime = 30
+
+[node name="grasland11" parent="grasland/graslandAnchor" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18.9067, 0.177489, -3.14595 )
+
+[node name="grasland10" parent="grasland/graslandAnchor" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23.2972, 0.177489, -7.62905 )
+growTime = 30
+
+[node name="grasland9" parent="grasland/graslandAnchor" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18.9067, 0.177489, -7.62905 )
+
+[node name="graslandAnchor2" type="Spatial" parent="grasland"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.4928, -4.96935, 9.3632 )
+
+[node name="grasland" parent="grasland/graslandAnchor2" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.29716, 0.177489, -3.14595 )
+growTime = 30
+
+[node name="grasland2" parent="grasland/graslandAnchor2" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.90666, 0.177489, -3.14595 )
+
+[node name="grasland4" parent="grasland/graslandAnchor2" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.29716, 0.177489, -7.62905 )
+growTime = 30
+
+[node name="grasland3" parent="grasland/graslandAnchor2" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.90666, 0.177489, -7.62905 )
+
+[node name="grasland8" parent="grasland/graslandAnchor2" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2972, 0.177489, -3.14595 )
+growTime = 30
+
+[node name="grasland7" parent="grasland/graslandAnchor2" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9067, 0.177489, -3.14595 )
+
+[node name="grasland6" parent="grasland/graslandAnchor2" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2972, 0.177489, -7.62905 )
+growTime = 30
+
+[node name="grasland5" parent="grasland/graslandAnchor2" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9067, 0.177489, -7.62905 )
+
+[node name="grasland12" parent="grasland/graslandAnchor2" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23.2972, 0.177489, -3.14595 )
+growTime = 30
+
+[node name="grasland11" parent="grasland/graslandAnchor2" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18.9067, 0.177489, -3.14595 )
+
+[node name="grasland10" parent="grasland/graslandAnchor2" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23.2972, 0.177489, -7.62905 )
+growTime = 30
+
+[node name="grasland9" parent="grasland/graslandAnchor2" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18.9067, 0.177489, -7.62905 )
+
+[node name="graslandAnchor3" type="Spatial" parent="grasland"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.4928, -4.96935, 0.363199 )
+
+[node name="grasland" parent="grasland/graslandAnchor3" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.29716, 0.177489, -3.14595 )
+growTime = 30
+
+[node name="grasland2" parent="grasland/graslandAnchor3" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.90666, 0.177489, -3.14595 )
+
+[node name="grasland4" parent="grasland/graslandAnchor3" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.29716, 0.177489, -7.62905 )
+growTime = 30
+
+[node name="grasland3" parent="grasland/graslandAnchor3" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.90666, 0.177489, -7.62905 )
+
+[node name="grasland8" parent="grasland/graslandAnchor3" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2972, 0.177489, -3.14595 )
+growTime = 30
+
+[node name="grasland7" parent="grasland/graslandAnchor3" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9067, 0.177489, -3.14595 )
+
+[node name="grasland6" parent="grasland/graslandAnchor3" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2972, 0.177489, -7.62905 )
+growTime = 30
+
+[node name="grasland5" parent="grasland/graslandAnchor3" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9067, 0.177489, -7.62905 )
+
+[node name="grasland12" parent="grasland/graslandAnchor3" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23.2972, 0.177489, -3.14595 )
+growTime = 30
+
+[node name="grasland11" parent="grasland/graslandAnchor3" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18.9067, 0.177489, -3.14595 )
+
+[node name="grasland10" parent="grasland/graslandAnchor3" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23.2972, 0.177489, -7.62905 )
+growTime = 30
+
+[node name="grasland9" parent="grasland/graslandAnchor3" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18.9067, 0.177489, -7.62905 )
+
+[node name="graslandAnchor4" type="Spatial" parent="grasland"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.4928, -4.96935, -8.6368 )
+
+[node name="grasland" parent="grasland/graslandAnchor4" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.29716, 0.177489, -3.14595 )
+growTime = 30
+
+[node name="grasland2" parent="grasland/graslandAnchor4" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.90666, 0.177489, -3.14595 )
+
+[node name="grasland4" parent="grasland/graslandAnchor4" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.29716, 0.177489, -7.62905 )
+growTime = 30
+
+[node name="grasland3" parent="grasland/graslandAnchor4" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.90666, 0.177489, -7.62905 )
+
+[node name="grasland8" parent="grasland/graslandAnchor4" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2972, 0.177489, -3.14595 )
+growTime = 30
+
+[node name="grasland7" parent="grasland/graslandAnchor4" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9067, 0.177489, -3.14595 )
+
+[node name="grasland6" parent="grasland/graslandAnchor4" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2972, 0.177489, -7.62905 )
+growTime = 30
+
+[node name="grasland5" parent="grasland/graslandAnchor4" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9067, 0.177489, -7.62905 )
+
+[node name="grasland12" parent="grasland/graslandAnchor4" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23.2972, 0.177489, -3.14595 )
+growTime = 30
+
+[node name="grasland11" parent="grasland/graslandAnchor4" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18.9067, 0.177489, -3.14595 )
+
+[node name="grasland10" parent="grasland/graslandAnchor4" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23.2972, 0.177489, -7.62905 )
+growTime = 30
+
+[node name="grasland9" parent="grasland/graslandAnchor4" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18.9067, 0.177489, -7.62905 )
 
 [node name="kitchenLabel" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5072, 3.96935, -22.3632 )
@@ -179,10 +386,14 @@ ignoreDistanceCulling = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.304605, 0.430969 )
 
 [node name="Label" type="Label" parent="kitchenLabel"]
-margin_left = 23.0
-margin_top = 144.0
-margin_right = 123.0
-margin_bottom = 177.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -555.501
+margin_top = 378.0
+margin_right = -428.501
+margin_bottom = 418.0
 custom_fonts/font = ExtResource( 14 )
 text = "kitchen"
 align = 1
@@ -202,10 +413,14 @@ ignoreDistanceCulling = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.304605, 0.430969 )
 
 [node name="Label" type="Label" parent="barnLabel"]
-margin_left = 17.0
-margin_top = 105.0
-margin_right = 117.0
-margin_bottom = 145.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -542.001
+margin_top = 378.0
+margin_right = -442.001
+margin_bottom = 418.0
 custom_fonts/font = ExtResource( 14 )
 text = "barn"
 align = 1
@@ -245,187 +460,8 @@ autoplay = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.951539, 0 )
 shape = SubResource( 2 )
 
-[node name="graslandAnchor" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, -4 )
-
-[node name="grasland" parent="graslandAnchor" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.29716, 0.177489, -3.14595 )
-growTime = 30
-
-[node name="grasland2" parent="graslandAnchor" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.90666, 0.177489, -3.14595 )
-
-[node name="grasland4" parent="graslandAnchor" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.29716, 0.177489, -7.62905 )
-growTime = 30
-
-[node name="grasland3" parent="graslandAnchor" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.90666, 0.177489, -7.62905 )
-
-[node name="grasland8" parent="graslandAnchor" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2972, 0.177489, -3.14595 )
-growTime = 30
-
-[node name="grasland7" parent="graslandAnchor" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9067, 0.177489, -3.14595 )
-
-[node name="grasland6" parent="graslandAnchor" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2972, 0.177489, -7.62905 )
-growTime = 30
-
-[node name="grasland5" parent="graslandAnchor" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9067, 0.177489, -7.62905 )
-
-[node name="grasland12" parent="graslandAnchor" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23.2972, 0.177489, -3.14595 )
-growTime = 30
-
-[node name="grasland11" parent="graslandAnchor" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18.9067, 0.177489, -3.14595 )
-
-[node name="grasland10" parent="graslandAnchor" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23.2972, 0.177489, -7.62905 )
-growTime = 30
-
-[node name="grasland9" parent="graslandAnchor" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18.9067, 0.177489, -7.62905 )
-
-[node name="graslandAnchor2" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, -13 )
-
-[node name="grasland" parent="graslandAnchor2" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.29716, 0.177489, -3.14595 )
-growTime = 30
-
-[node name="grasland2" parent="graslandAnchor2" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.90666, 0.177489, -3.14595 )
-
-[node name="grasland4" parent="graslandAnchor2" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.29716, 0.177489, -7.62905 )
-growTime = 30
-
-[node name="grasland3" parent="graslandAnchor2" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.90666, 0.177489, -7.62905 )
-
-[node name="grasland8" parent="graslandAnchor2" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2972, 0.177489, -3.14595 )
-growTime = 30
-
-[node name="grasland7" parent="graslandAnchor2" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9067, 0.177489, -3.14595 )
-
-[node name="grasland6" parent="graslandAnchor2" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2972, 0.177489, -7.62905 )
-growTime = 30
-
-[node name="grasland5" parent="graslandAnchor2" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9067, 0.177489, -7.62905 )
-
-[node name="grasland12" parent="graslandAnchor2" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23.2972, 0.177489, -3.14595 )
-growTime = 30
-
-[node name="grasland11" parent="graslandAnchor2" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18.9067, 0.177489, -3.14595 )
-
-[node name="grasland10" parent="graslandAnchor2" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23.2972, 0.177489, -7.62905 )
-growTime = 30
-
-[node name="grasland9" parent="graslandAnchor2" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18.9067, 0.177489, -7.62905 )
-
-[node name="graslandAnchor3" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, -22 )
-
-[node name="grasland" parent="graslandAnchor3" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.29716, 0.177489, -3.14595 )
-growTime = 30
-
-[node name="grasland2" parent="graslandAnchor3" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.90666, 0.177489, -3.14595 )
-
-[node name="grasland4" parent="graslandAnchor3" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.29716, 0.177489, -7.62905 )
-growTime = 30
-
-[node name="grasland3" parent="graslandAnchor3" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.90666, 0.177489, -7.62905 )
-
-[node name="grasland8" parent="graslandAnchor3" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2972, 0.177489, -3.14595 )
-growTime = 30
-
-[node name="grasland7" parent="graslandAnchor3" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9067, 0.177489, -3.14595 )
-
-[node name="grasland6" parent="graslandAnchor3" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2972, 0.177489, -7.62905 )
-growTime = 30
-
-[node name="grasland5" parent="graslandAnchor3" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9067, 0.177489, -7.62905 )
-
-[node name="grasland12" parent="graslandAnchor3" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23.2972, 0.177489, -3.14595 )
-growTime = 30
-
-[node name="grasland11" parent="graslandAnchor3" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18.9067, 0.177489, -3.14595 )
-
-[node name="grasland10" parent="graslandAnchor3" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23.2972, 0.177489, -7.62905 )
-growTime = 30
-
-[node name="grasland9" parent="graslandAnchor3" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18.9067, 0.177489, -7.62905 )
-
-[node name="graslandAnchor4" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, -31 )
-
-[node name="grasland" parent="graslandAnchor4" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.29716, 0.177489, -3.14595 )
-growTime = 30
-
-[node name="grasland2" parent="graslandAnchor4" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.90666, 0.177489, -3.14595 )
-
-[node name="grasland4" parent="graslandAnchor4" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.29716, 0.177489, -7.62905 )
-growTime = 30
-
-[node name="grasland3" parent="graslandAnchor4" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.90666, 0.177489, -7.62905 )
-
-[node name="grasland8" parent="graslandAnchor4" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2972, 0.177489, -3.14595 )
-growTime = 30
-
-[node name="grasland7" parent="graslandAnchor4" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9067, 0.177489, -3.14595 )
-
-[node name="grasland6" parent="graslandAnchor4" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2972, 0.177489, -7.62905 )
-growTime = 30
-
-[node name="grasland5" parent="graslandAnchor4" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9067, 0.177489, -7.62905 )
-
-[node name="grasland12" parent="graslandAnchor4" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23.2972, 0.177489, -3.14595 )
-growTime = 30
-
-[node name="grasland11" parent="graslandAnchor4" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18.9067, 0.177489, -3.14595 )
-
-[node name="grasland10" parent="graslandAnchor4" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23.2972, 0.177489, -7.62905 )
-growTime = 30
-
-[node name="grasland9" parent="graslandAnchor4" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18.9067, 0.177489, -7.62905 )
-
 [node name="pause_popup" type="Control" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {

@@ -34,6 +34,10 @@ shape = SubResource( 1 )
 [node name="carry_anchor" type="Spatial" parent="farmer_rig"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.44641, 0.34071 )
 
+[node name="joint" type="Generic6DOFJoint" parent="farmer_rig"]
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 1.0771, 0.700053 )
+nodes/node_a = NodePath("../..")
+
 [node name="equiped_anchor" type="Spatial" parent="farmer_rig"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.694281, 1.44641, 0.0441089 )
 
@@ -59,12 +63,13 @@ dollyPath = NodePath("..")
 [node name="Label" type="Label" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -516.0
-margin_top = 2.0
-margin_right = -98.0
-margin_bottom = 33.0
+margin_left = -285.0
+margin_top = 613.0
+margin_right = 133.0
+margin_bottom = 644.0
 custom_fonts/font = SubResource( 2 )
 text = "Player"
+align = 1
 valign = 1
 autowrap = true
 __meta__ = {

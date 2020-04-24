@@ -1,6 +1,6 @@
 extends "carry.gd"
 
-const MAX_GROW_TIME = 30
+const MAX_GROW_TIME = 240
 const MAX_HITS = 5
 
 export var growTime = 0
@@ -13,7 +13,8 @@ var grasScene
 func _ready():
 	grasScene = load("res://objects/gras.tscn")
 	startTransform = Transform($MeshInstance.transform)
-	pass # Replace with function body.
+	growTime = rand_range(0, MAX_GROW_TIME)
+	pass 
 
 func _process(_delta):
 	growTime += _delta
@@ -54,4 +55,4 @@ func make_text():
 	if(hits > 0):
 		return "HARVEST: %d/%d"  % [hits,MAX_HITS]
 	else:
-		return "grasland %d/100"  % (progress*100)
+		return "%d/100"  % (progress*100)
