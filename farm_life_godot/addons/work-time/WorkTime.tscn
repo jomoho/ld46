@@ -1,0 +1,73 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/work-time/WorkTime.gd" type="Script" id=1]
+
+[node name="WorkTime" type="Control"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="box" type="VBoxContainer" parent="."]
+alignment = 1
+
+[node name="session" type="VBoxContainer" parent="box"]
+margin_right = 214.0
+margin_bottom = 118.0
+
+[node name="Label" type="Label" parent="box/session"]
+margin_right = 214.0
+margin_bottom = 21.0
+text = "Session Length:"
+align = 1
+
+[node name="Time" type="Label" parent="box/session"]
+margin_top = 25.0
+margin_right = 214.0
+margin_bottom = 118.0
+text = "0 days
+3 hours
+21 minutes
+57 seconds"
+align = 1
+
+[node name="HSeparator" type="HSeparator" parent="box"]
+margin_top = 122.0
+margin_right = 214.0
+margin_bottom = 126.0
+
+[node name="total" type="VBoxContainer" parent="box"]
+margin_top = 130.0
+margin_right = 214.0
+margin_bottom = 310.0
+
+[node name="Label" type="Label" parent="box/total"]
+margin_right = 214.0
+margin_bottom = 21.0
+text = "Current Cost of Life:"
+align = 1
+
+[node name="Time" type="Label" parent="box/total"]
+margin_top = 25.0
+margin_right = 214.0
+margin_bottom = 118.0
+text = "0 days
+0 hours
+1 minutes
+8 seconds"
+align = 1
+
+[node name="Reset" type="Button" parent="box/total"]
+margin_top = 122.0
+margin_right = 214.0
+margin_bottom = 149.0
+rect_pivot_offset = Vector2( 126, 13.5 )
+text = "Reset (hold for 3 seconds)"
+
+[node name="save" type="Button" parent="box/total"]
+margin_top = 153.0
+margin_right = 214.0
+margin_bottom = 180.0
+rect_pivot_offset = Vector2( 126, 13.5 )
+text = "Save"
+[connection signal="pressed" from="box/total/save" to="." method="_on_save_pressed"]
