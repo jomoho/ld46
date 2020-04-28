@@ -3,7 +3,7 @@
 [ext_resource path="res://models/farm_land.gltf" type="PackedScene" id=1]
 [ext_resource path="res://scenes/farm/farm_level.gd" type="Script" id=2]
 [ext_resource path="res://objects/characters/cow_agent.tscn" type="PackedScene" id=3]
-[ext_resource path="res://objects/characters/farmer_player_exp.tscn" type="PackedScene" id=4]
+[ext_resource path="res://objects/characters/farmer_player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://objects/gras.tscn" type="PackedScene" id=5]
 [ext_resource path="res://objects/pitchfork.tscn" type="PackedScene" id=6]
 [ext_resource path="res://objects/poo.tscn" type="PackedScene" id=7]
@@ -66,6 +66,23 @@ autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Player" parent="." groups=[
+"player",
+] instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.9969, 0, 18.7135 )
+collision_layer = 7
+collision_mask = 7
+cameraPath = NodePath("../../farm_level/Player/camera_dolly/Camera")
+meshPath = NodePath("../../farm_level/Player/farmer_rig")
+
+[node name="Label" parent="Player" index="4"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = -701.001
+margin_top = 382.5
+margin_right = -283.001
+margin_bottom = 413.5
 
 [node name="RayCast" type="RayCast" parent="."]
 
@@ -496,14 +513,10 @@ margin_left = -20.0
 margin_top = -20.0
 margin_right = 20.0
 margin_bottom = 20.0
-
-[node name="Player" parent="." instance=ExtResource( 4 )]
-cameraPath = NodePath("../GUI/Player/camera_dolly/Camera")
-meshPath = NodePath("../GUI/Player/farmer_rig")
-animTreePath = NodePath("../GUI/Player/farmer_rig/AnimationTree")
-skeletonPath = NodePath("../GUI/Player/farmer_rig/farmer_rig/farmer_rig/Skeleton")
 [connection signal="body_entered" from="dungheapArea" to="." method="_on_dungheap_body_entered"]
 [connection signal="body_entered" from="kitchenArea" to="." method="_on_kitchenArea_body_entered"]
 [connection signal="pressed" from="pause_popup/ColorRect/ContinueButton" to="." method="_on_ContinueButton_pressed"]
+
+[editable path="Player"]
 
 [editable path="Erna "]
