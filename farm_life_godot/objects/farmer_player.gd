@@ -45,11 +45,11 @@ func _ready():
 	camera = get_node(cameraPath)
 	mesh = get_node(meshPath)
 	animTree = get_node(animTreePath)
+	#TODO fix hand bone alignment
 	skeleton = get_node(skeletonPath)
 	rightHandBoneId = skeleton.find_bone("defhand_r")
 	print("right hand bone: %d"% rightHandBoneId)
-
-
+	
 	equipedAnchor = get_node("farmer_rig/equiped_anchor")
 	carryAnchor = get_node("farmer_rig/carry_anchor")
 	pooAnchor = get_node("farmer_rig/poo_anchor")
@@ -79,6 +79,7 @@ func _process(_delta):
 				actionCounter = 0
 				drop_tool()
 
+	#TODO: better action/ interaction system
 		if(Input.is_action_pressed("action")):
 			actionCounter = 0
 			if wheelbarrow != null:
@@ -96,7 +97,7 @@ func _process(_delta):
 							
 				elif interactable.is_in_group( 'can_carry'):
 					pick_to_carry(interactable)
-				elif interactable.is_in_group('cow'):
+				elif interactable.is_in_group('cow') and equiped == null:
 					milk_cow(interactable)
 				elif interactable.is_in_group('grasland'):
 					if equiped != null:
@@ -197,11 +198,15 @@ func enter_gras(body):
 	pass
 
 func enter_cow(body):
+	
 	print(" cow body entered")
 	if body.has_milk():
 		label.set_text("press ACTION to milk cow %s " % body.name);
 	elif not body.is_hungry():
-		label.set_text("wait for cow %s to poo before milking!" % body.name);
+		if body.is_digesting():
+			label.set_text("wait for cow %s to poo before milking!" % body.name);
+		else: 
+			label.set_text("Feed %s if you want to milk her!" % body.name);
 	else:
 		label.set_text("Cow %s is hungry feed her some gras!" % body.name);
 	interactable = body
@@ -287,11 +292,12 @@ func pick_to_carry(body):
 	pass
 
 func milk_cow(body):
-	print("milk_cow")
-	animTree.set("parameters/milk/active", true)
-	yield(get_tree().create_timer(1.5), "timeout")
-	body.milk_action(self)
-	pass
+	if body.has_milk():
+		print("milk_cow")
+		animTree.set("parameters/milk/active", true)
+		yield(get_tree().create_timer(1.5), "timeout")
+		body.milk_action(self)
+		pass
 
 func enter_wheelbarrow(body):
 	wheelbarrow = body

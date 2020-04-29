@@ -29,6 +29,7 @@ func _ready():
 # 			dolly.rotate_x(-deg2rad(changev))
 
 func _physics_process(_delta):
+	#TODO: create a better camera
 	var target_pos = target.get_global_transform().origin
 	var pos = get_global_transform().origin
 	var up = Vector3(0,1,0)

@@ -38,10 +38,8 @@ func _process(_delta):
 		hungry = true
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
-	
-	animTree = get_node(animTreePath)
-	
+func _ready():	
+	animTree = get_node(animTreePath)	
 	pooScene = load("res://objects/poo.tscn")
 	milkcanScene = load("res://objects/milkcan.tscn")
 	deadCowSene = load("res://objects/milkcan.tscn")
@@ -89,11 +87,14 @@ func has_milk():
 
 func is_hungry():
 	return hungry
+	
+func is_digesting():
+	return foodQueue > 0
 
 func hungry_text():
 	if hungry:
 		return "is hungry"
-	elif foodQueue > 0:
+	elif is_digesting():
 		return "is digesting... %d/10" % ((pooTimer/POO_INTERVAL)*10)
 	else:
 		return "is statisfied.. %d" % (100-((hungerTimer/HUNGER_INTERVAL)*100))
@@ -125,6 +126,7 @@ func exit_area(body):
 func milk_action(body):
 	if has_milk():
 		print("milk_action")
+		#TODO player callback
 		milkAvailable = false		
 		get_node("/root/globals").cowMilked += 1
 		$sfxMilk.play()
