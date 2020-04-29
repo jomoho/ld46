@@ -9,7 +9,7 @@ var grasCut = 0
 var timeAlive = 0
 
 func _ready():
-	pass # Replace with function body.
+	pass
 
 func reset():
 	pooCleaned = 0

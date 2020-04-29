@@ -49,6 +49,13 @@ enabled=PoolStringArray( "todo", "work-time" )
 
 theme/custom_font="res://ttf/atype_16.tres"
 
+[importer_defaults]
+
+ogg_vorbis={
+"loop": false,
+"loop_offset": 0
+}
+
 [input]
 
 move_up={

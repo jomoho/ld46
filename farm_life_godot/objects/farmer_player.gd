@@ -153,12 +153,13 @@ func _physics_process(delta):
 	if(Input.is_action_pressed("move_right")):
 		dir += camera.get_global_transform().basis[0]
 		walking =true
-
-	dir.y = 0
-	dir = dir.normalized()
-	var t = mesh.get_transform()
-	var rotTransform = t.looking_at(-dir,Vector3(0,1,0))
-	mesh.set_transform(rotTransform)
+	if(dir != Vector3.ZERO):
+		dir.y = 0
+		dir = dir.normalized()
+		var t = mesh.get_transform()
+		var rotTransform = t.looking_at(-dir,Vector3(0,1,0))
+		mesh.set_transform(rotTransform)
+		
 	velocity.y += delta * gravity
 	var hv = velocity
 	hv.y = 0
@@ -172,6 +173,7 @@ func _physics_process(delta):
 	velocity.z = hv.z
 
 	velocity = move_and_slide(velocity, Vector3(0,1,0))
+	
 	animTree.set("parameters/idle-walk/blend_amount", velocity.length()/SPEED)
 	animTree.set("parameters/walk-speed/scale", 0.5*(velocity.length()))
 	

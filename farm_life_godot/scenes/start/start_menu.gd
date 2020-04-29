@@ -3,6 +3,7 @@ extends Spatial
 export var game_over = false
 
 func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	if game_over:
 		load_stats()
 	pass 

@@ -33,7 +33,8 @@ func _process(_delta):
 		feedReserve = 1.0 - (feedingCounter/MILK_FEED_TIME)
 	pass
 
-func _ready():
+func _ready():	
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	player = get_node("Player")
 	get_node("/root/globals").reset()
 	$pause_popup.hide()
@@ -88,13 +89,15 @@ func _on_kitchenArea_body_entered(body):
 		player.label.set_text("You fed the family!")
 	pass
 	
-func _on_pause_button_pressed():
+func _on_pause_button_pressed():	
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	get_tree().paused = true
 	$pause_popup.show()
 	pass
 
 
 func _on_ContinueButton_pressed():
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	$pause_popup.hide()
 	get_tree().paused = false
 	pass # Replace with function body.

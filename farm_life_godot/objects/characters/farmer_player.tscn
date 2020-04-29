@@ -2,7 +2,7 @@
 
 [ext_resource path="res://objects/characters/farmer_rig.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/farmer_player.gd" type="Script" id=2]
-[ext_resource path="res://objects/camera.gd" type="Script" id=3]
+[ext_resource path="res://objects/characters/camera_crane.gd" type="Script" id=3]
 [ext_resource path="res://ttf/atwriter.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://sound/sfx/Auto #4.ogg" type="AudioStream" id=5]
 [ext_resource path="res://sound/sfx/Auto.ogg" type="AudioStream" id=6]
@@ -19,8 +19,9 @@ use_filter = true
 font_data = ExtResource( 4 )
 
 [node name="Player" type="KinematicBody"]
+input_ray_pickable = false
 script = ExtResource( 2 )
-cameraPath = NodePath("camera_dolly/Camera")
+cameraPath = NodePath("camera_crane/camera_dolly/camera")
 meshPath = NodePath("farmer_rig")
 animTreePath = NodePath("farmer_rig/AnimationTree")
 skeletonPath = NodePath("farmer_rig/farmer_rig/farmer_rig/Skeleton")
@@ -47,18 +48,19 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.694281, 2.67492, 0.0441089 
 [node name="wheelbarrow_anchor" type="Spatial" parent="farmer_rig"]
 transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0, 2.48635 )
 
-[node name="target" type="Spatial" parent="."]
+[node name="camera_crane" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.81646, 0.228784 )
-
-[node name="camera_dolly" type="Spatial" parent="."]
-transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 3.547, -1.827 )
-
-[node name="Camera" type="Camera" parent="camera_dolly"]
-transform = Transform( 1, 0, 0, 0, 0.793353, 0.608761, 0, -0.608761, 0.793353, 0, 0, 0 )
-size = 4.93
 script = ExtResource( 3 )
-targetPath = NodePath("../../target")
-dollyPath = NodePath("..")
+
+[node name="camera_dolly" type="Spatial" parent="camera_crane"]
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 1.73054, -3.73807 )
+
+[node name="camera" type="ClippedCamera" parent="camera_crane/camera_dolly"]
+transform = Transform( 1, 0, 0, 0, 0.793353, 0.608761, 0, -0.608761, 0.793353, 0, 0, 0 )
+doppler_tracking = 2
+current = true
+size = 4.93
+margin = 2.46
 
 [node name="Label" type="Label" parent="."]
 anchor_left = 0.5
