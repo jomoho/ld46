@@ -102,3 +102,8 @@ func _on_ContinueButton_pressed():
 	$pause_popup.hide()
 	get_tree().paused = false
 	pass # Replace with function body.
+
+
+func _on_ExitToMenuButton_pressed():
+	get_tree().change_scene("res://scenes/start/start_menu.tscn")
+	pass # Replace with function body.
