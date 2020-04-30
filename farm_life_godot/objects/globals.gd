@@ -5,6 +5,7 @@ var familyFed = 0
 var cowFed = 0
 var cowMilked = 0
 var grasCut = 0
+var days = 0
 
 var timeAlive = 0
 
@@ -19,6 +20,7 @@ func reset():
 	grasCut = 0
 	
 	timeAlive = 0
+	days = 0
 	pass
 
 func get_stats():

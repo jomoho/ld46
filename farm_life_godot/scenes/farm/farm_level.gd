@@ -36,7 +36,6 @@ func _process(_delta):
 func _ready():	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	player = get_node("Player")
-	get_node("/root/globals").reset()
 	$pause_popup.hide()
 	$pause_popup.pause_mode = Node.PAUSE_MODE_PROCESS
 	pass
@@ -92,7 +91,9 @@ func _on_kitchenArea_body_entered(body):
 func _on_pause_button_pressed():	
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	get_tree().paused = true
+	$pause_popup/ColorRect/status.set_text("Stats: %s" % get_node("/root/globals").get_stats())
 	$pause_popup.show()
+	
 	pass
 
 

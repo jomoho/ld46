@@ -1,11 +1,12 @@
 extends Spatial
 
-export var game_over = false
+var days = 0;
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	if game_over:
-		load_stats()
+	days = get_node("/root/globals").days
+	$Control.get_node("title").set_text("End of Day #%d" % days)
+	load_stats()
 	pass 
 
 func load_stats():
@@ -14,6 +15,5 @@ func load_stats():
 
 func _on_StartButton_pressed():
 	print("START")
-	get_node("/root/globals").reset()
 	get_tree().change_scene("res://scenes/farm/farm_level.tscn")
 	pass 
