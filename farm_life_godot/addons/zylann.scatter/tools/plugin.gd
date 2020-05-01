@@ -174,6 +174,7 @@ func _physics_process(delta):
 						var instance = _pattern.instance()
 						instance.translation = pos
 						instance.rotate_y(rand_range(-PI, PI))
+						#TODO: add option to align to surface normal
 						_node.add_child(instance)
 						instance.owner = get_editor_interface().get_edited_scene_root()
 						_placed_instances.append(instance)
