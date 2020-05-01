@@ -19,21 +19,21 @@ margin_bottom = -4.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_right = 142.0
-margin_bottom = 27.0
+margin_bottom = 20.0
 
 [node name="AddButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 margin_right = 49.0
-margin_bottom = 27.0
+margin_bottom = 20.0
 text = "Add..."
 
 [node name="RemoveButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 margin_left = 53.0
 margin_right = 117.0
-margin_bottom = 27.0
+margin_bottom = 20.0
 text = "Remove"
 
 [node name="ItemList" type="ItemList" parent="VBoxContainer"]
-margin_top = 31.0
+margin_top = 24.0
 margin_right = 142.0
 margin_bottom = 592.0
 size_flags_vertical = 3

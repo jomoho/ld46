@@ -10,7 +10,6 @@ extents = Vector3( 1, 34.9068, 1 )
 [node name="tree01" type="StaticBody" groups=[
 "tree",
 ]]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.467, 0, 12.416 )
 script = ExtResource( 1 )
 
 [node name="trunk" type="MeshInstance" parent="."]
