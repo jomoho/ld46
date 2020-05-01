@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://objects/landscape/tree.gd" type="Script" id=1]
+[ext_resource path="res://models/landscape_elements/tree01.mesh" type="ArrayMesh" id=2]
+[ext_resource path="res://models/landscape_elements/Icosphere.mesh" type="ArrayMesh" id=3]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 1, 34.9068, 1 )
+
+[node name="tree01" type="StaticBody" groups=[
+"tree",
+]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.467, 0, 12.416 )
+script = ExtResource( 1 )
+
+[node name="trunk" type="MeshInstance" parent="."]
+mesh = ExtResource( 2 )
+material/0 = null
+
+[node name="foliage" type="MeshInstance" parent="."]
+transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, 0.136217, 17.5131, -0.176632 )
+mesh = ExtResource( 3 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.2, 0, 0, 0, 1, 0, 6.55317, 0 )
+shape = SubResource( 1 )
