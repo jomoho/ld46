@@ -10,20 +10,24 @@ var tickCounter = 0;
 export(NodePath) var playerPath
 export(Gradient) var lightGradient
 export(Gradient) var skyGradient
+export(Gradient) var ambientGradient
+
+export(Curve) var sunSizeCurve
+
 export(Vector3) var lightEulerStart
 export(Vector3) var lightEulerMiddle
 export(Vector3) var lightEulerEnd
 
-var lightStart
-var lightMiddle
-var lightEnd
-var player
+onready var lightStart = Transform(Quat(lightEulerStart))
+onready var lightMiddle = Transform(Quat(lightEulerMiddle))
+onready var lightEnd = Transform(Quat(lightEulerEnd))
+onready var player = get_node(playerPath)
+onready var cam = get_tree().get_root().get_camera()
+onready var environment = $WorldEnvironment.get_environment()
+onready var sunIdentity = $DirectionalLight/MeshInstance.transform
 
 func _ready():
-	lightStart = Transform(Quat(lightEulerStart))
-	lightMiddle = Transform(Quat(lightEulerMiddle))
-	lightEnd = Transform(Quat(lightEulerEnd))
-	player = get_node(playerPath)
+	environment.fog_enabled = true;
 	pass
 
 func _process(_delta):
@@ -56,12 +60,20 @@ func setLight():
 		euler = lightEulerMiddle.linear_interpolate(lightEulerEnd,( prg-0.5) * 2.0)
 	euler = Vector3(deg2rad(euler.x), deg2rad(euler.y),deg2rad(euler.z))
 	$DirectionalLight.transform = Transform(Quat(euler))
+	var skyColor =  skyGradient.interpolate(prg)
+	var sunColor =  lightGradient.interpolate(prg)
+	var ambientColor =  ambientGradient.interpolate(prg)
+	setSunColor(sunColor)
+	VisualServer.set_default_clear_color(skyColor)
+	$WorldEnvironment.get_environment().ambient_light_color = ambientColor
 	
-	$DirectionalLight.light_color = lightGradient.interpolate(dayProgress())
-	setSunColor(lightGradient.interpolate(dayProgress()))
-	VisualServer.set_default_clear_color( lightGradient.interpolate(dayProgress()))
+	var sunSize = sunSizeCurve.interpolate(prg)
+	#print(sunSize)
+	$DirectionalLight/MeshInstance.transform.basis = sunIdentity.scaled(Vector3(sunSize,sunSize,sunSize)).basis
 	pass
 func setSunColor(color):
+	$WorldEnvironment.get_environment().fog_sun_color = color
+	$DirectionalLight.light_color = color
 	$DirectionalLight/MeshInstance.material_override.albedo_color = color
 	var material= $DirectionalLight/MeshInstance.get_surface_material(0)
 	#material.albedo_color = color

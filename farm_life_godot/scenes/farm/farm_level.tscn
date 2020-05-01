@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://models/farm_land.gltf" type="PackedScene" id=1]
 [ext_resource path="res://scenes/farm/farm_level.gd" type="Script" id=2]
@@ -27,32 +27,60 @@
 [ext_resource path="res://img/color_textures/dark_green_01.png" type="Texture" id=25]
 [ext_resource path="res://img/color_textures/light_grey_01.png" type="Texture" id=26]
 [ext_resource path="res://img/color_textures/light_green_02.png" type="Texture" id=27]
+[ext_resource path="res://farm_environment_day.tres" type="Environment" id=28]
+[ext_resource path="res://scenes/farm/ambient_gradient.tres" type="Gradient" id=29]
+[ext_resource path="res://scenes/farm/sun_size_curve.tres" type="Curve" id=30]
+[ext_resource path="res://sound/sfx/cut_gras_01.ogg" type="AudioStream" id=31]
+[ext_resource path="res://sound/sfx/Auto #4.ogg" type="AudioStream" id=32]
 
-[sub_resource type="SpatialMaterial" id=6]
+[sub_resource type="SpatialMaterial" id=1]
 flags_unshaded = true
 flags_do_not_receive_shadows = true
+flags_disable_ambient_light = true
 params_specular_mode = 4
 params_blend_mode = 1
 
-[sub_resource type="SphereMesh" id=7]
+[sub_resource type="SphereMesh" id=2]
 
-[sub_resource type="SpatialMaterial" id=8]
-
-[sub_resource type="BoxShape" id=1]
+[sub_resource type="BoxShape" id=3]
 extents = Vector3( 7, 6.25897, 7 )
 
-[sub_resource type="BoxShape" id=2]
+[sub_resource type="CubeMesh" id=4]
+
+[sub_resource type="BoxShape" id=5]
 extents = Vector3( 63.6518, 1, 64.2243 )
+
+[sub_resource type="PlaneMesh" id=6]
+
+[sub_resource type="NoiseTexture" id=7]
+
+[sub_resource type="NoiseTexture" id=8]
+
+[sub_resource type="SpatialMaterial" id=9]
+albedo_color = Color( 0.258824, 0.6, 1, 1 )
+metallic = 0.14
+metallic_specular = 0.73
+metallic_texture = SubResource( 7 )
+roughness = 0.14
+roughness_texture = SubResource( 8 )
+
+[sub_resource type="CubeMesh" id=10]
+
+[sub_resource type="BoxShape" id=11]
+extents = Vector3( 1, 0.766525, 1 )
+
+[sub_resource type="BoxShape" id=12]
 
 [node name="farm_level" type="Spatial"]
 script = ExtResource( 2 )
 
 [node name="day_controller" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 script = ExtResource( 18 )
 playerPath = NodePath("../Player")
 lightGradient = ExtResource( 22 )
 skyGradient = ExtResource( 21 )
+ambientGradient = ExtResource( 29 )
+sunSizeCurve = ExtResource( 30 )
 lightEulerStart = Vector3( -185, 0, 0 )
 lightEulerMiddle = Vector3( -90, 0, 0 )
 lightEulerEnd = Vector3( 5, 0, 0 )
@@ -69,11 +97,14 @@ shadow_bias = 0.01
 directional_shadow_max_distance = 117.9
 
 [node name="MeshInstance" type="MeshInstance" parent="day_controller/DirectionalLight"]
-transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 160 )
-material_override = SubResource( 6 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 500 )
+material_override = SubResource( 1 )
 cast_shadow = 0
-mesh = SubResource( 7 )
-material/0 = SubResource( 8 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="day_controller"]
+environment = ExtResource( 28 )
 
 [node name="GUI" type="Control" parent="."]
 anchor_right = 1.0
@@ -155,6 +186,7 @@ margin_right = -467.001
 margin_bottom = 408.4
 
 [node name="farm_land" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0221158, -0.26979, -0.0690193 )
 
 [node name="poo" parent="." instance=ExtResource( 7 )]
 
@@ -479,7 +511,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.76181, 0, 40.3724 )
 
 [node name="CollisionShape" type="CollisionShape" parent="dungheapArea"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45799, 0, -1 )
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 
 [node name="kitchenArea" type="Area" parent="." groups=[
 "kitchen",
@@ -488,7 +520,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.2382, 0, -31.6276 )
 
 [node name="CollisionShape" type="CollisionShape" parent="kitchenArea"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.45799, 0, 0 )
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 
 [node name="sfxKitchenLoop" type="AudioStreamPlayer3D" parent="kitchenArea"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2, 3 )
@@ -496,11 +528,105 @@ stream = ExtResource( 15 )
 unit_size = 2.0
 autoplay = true
 
+[node name="lumbermill_area" type="Area" parent="." groups=[
+"kitchen",
+]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 89.231, 40, 307.313 )
+
+[node name="CollisionShape" type="CollisionShape" parent="lumbermill_area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.45799, 0, 0 )
+shape = SubResource( 3 )
+
+[node name="sfxLoop" type="AudioStreamPlayer3D" parent="lumbermill_area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2, 3 )
+stream = ExtResource( 15 )
+unit_size = 4.0
+pitch_scale = 0.22
+autoplay = true
+
+[node name="MeshInstance" type="MeshInstance" parent="lumbermill_area"]
+transform = Transform( 4, 0, 0, 0, 3, 0, 0, 0, 5, 0, 0.341637, 6.29532 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="lumbermill_label" type="Spatial" parent="lumbermill_area"]
+script = ExtResource( 13 )
+dynamicText = false
+ignoreDistanceCulling = true
+
+[node name="LabelAnchor" type="Spatial" parent="lumbermill_area/lumbermill_label"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.51912, 0.430969 )
+
+[node name="Label" type="Label" parent="lumbermill_area/lumbermill_label"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -555.501
+margin_top = 378.0
+margin_right = -428.501
+margin_bottom = 418.0
+custom_fonts/font = ExtResource( 14 )
+text = "Lumbermill"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="lumbermill_area2" type="Area" parent="." groups=[
+"kitchen",
+]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 513.042, 32.4565, 324.215 )
+
+[node name="CollisionShape" type="CollisionShape" parent="lumbermill_area2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.45799, 0, 0 )
+shape = SubResource( 3 )
+
+[node name="sfxLoop" type="AudioStreamPlayer3D" parent="lumbermill_area2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2, 3 )
+stream = ExtResource( 15 )
+unit_size = 4.0
+pitch_scale = 0.22
+autoplay = true
+
+[node name="MeshInstance" type="MeshInstance" parent="lumbermill_area2"]
+transform = Transform( 4, 0, 0, 0, 3, 0, 0, 0, 5, 0, 0.341637, 6.29532 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="lumbermill_label" type="Spatial" parent="lumbermill_area2"]
+script = ExtResource( 13 )
+dynamicText = false
+ignoreDistanceCulling = true
+
+[node name="LabelAnchor" type="Spatial" parent="lumbermill_area2/lumbermill_label"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.51912, 0.430969 )
+
+[node name="Label" type="Label" parent="lumbermill_area2/lumbermill_label"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -555.501
+margin_top = 378.0
+margin_right = -428.501
+margin_bottom = 418.0
+custom_fonts/font = ExtResource( 14 )
+text = "Lumbermill"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="StaticBody" type="StaticBody" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.951539, 0 )
-shape = SubResource( 2 )
+shape = SubResource( 5 )
 
 [node name="pause_popup" type="Control" parent="."]
 anchor_right = 1.0
@@ -614,10 +740,64 @@ ground/albedo_bump_2 = ExtResource( 24 )
 ground/normal_roughness_2 = null
 ground/albedo_bump_3 = ExtResource( 26 )
 ground/normal_roughness_3 = null
+
+[node name="MeshInstance" type="MeshInstance" parent="HTerrain"]
+transform = Transform( 1000, 0, 0, 0, 1, 0, 0, 0, 1000, 499.748, -2.78723, 501.053 )
+mesh = SubResource( 6 )
+material/0 = SubResource( 9 )
+
+[node name="bridge" type="StaticBody" parent="." groups=[
+"grasland",
+]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.3673, -0.0275686, 181.93 )
+
+[node name="MeshInstance" type="MeshInstance" parent="bridge"]
+transform = Transform( 3, 0, 0, 0, 1, 0, 0, 0, 30, 0, 0, 0 )
+mesh = SubResource( 10 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="bridge"]
+transform = Transform( 3, 0, 0, 0, 1, 0, 0, 0, 30, 0, 0, 0 )
+shape = SubResource( 11 )
+
+[node name="Area" type="Area" parent="bridge"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="bridge/Area"]
+shape = SubResource( 12 )
+
+[node name="LabelAnchor" type="Spatial" parent="bridge"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.300306, 0 )
+
+[node name="Label" type="Label" parent="bridge"]
+margin_left = -100.0
+margin_top = 137.0
+margin_right = -54.0
+margin_bottom = 158.0
+text = "grasland"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="spawn" type="Spatial" parent="bridge"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.42407, 0 )
+
+[node name="sfxHarvest" type="AudioStreamPlayer3D" parent="bridge"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.34907, 0 )
+stream = ExtResource( 31 )
+
+[node name="sfxReap" type="AudioStreamPlayer3D" parent="bridge"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.34907, 0 )
+stream = ExtResource( 32 )
 [connection signal="body_entered" from="dungheapArea" to="." method="_on_dungheap_body_entered"]
 [connection signal="body_entered" from="kitchenArea" to="." method="_on_kitchenArea_body_entered"]
+[connection signal="body_entered" from="lumbermill_area" to="." method="_on_kitchenArea_body_entered"]
+[connection signal="body_entered" from="lumbermill_area2" to="." method="_on_kitchenArea_body_entered"]
 [connection signal="pressed" from="pause_popup/ColorRect/ContinueButton" to="." method="_on_ContinueButton_pressed"]
 [connection signal="pressed" from="pause_popup/ColorRect/ExitToMenuButton" to="." method="_on_ExitToMenuButton_pressed"]
+[connection signal="body_entered" from="bridge/Area" to="bridge" method="_on_Area_body_entered"]
+[connection signal="body_exited" from="bridge/Area" to="bridge" method="_on_Area_body_exited"]
 
 [editable path="Player"]
 

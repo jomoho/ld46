@@ -692,7 +692,7 @@ window/custom_font=""
 
 [editor_plugins]
 
-enabled=PoolStringArray( "godot_db_manager", "todo", "work-time", "zylann.hterrain" )
+enabled=PoolStringArray( "godot_db_manager", "todo", "work-time", "zylann.hterrain", "zylann.scatter" )
 
 [gui]
 

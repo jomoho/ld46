@@ -31,7 +31,7 @@ var animTree
 var skeleton
 var rightHandBoneId
 
-const SPEED = 6
+const SPEED = 12
 const ACCELERATION = 3
 const DE_ACCELERATION = 5
 

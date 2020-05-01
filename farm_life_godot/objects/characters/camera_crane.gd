@@ -14,12 +14,12 @@ func _ready():
 
 
 func _input(event):
-	print(event)
+	#print(event)
 	if event is InputEventMouseMotion:
 		var change_x = event.relative.y * mouse_sens
 		var change_y = -event.relative.x * mouse_sens
 		camera_angle_target += Vector3(deg2rad(change_x), deg2rad(change_y), 0)
-		print(camera_angle_target);
+		#print(camera_angle_target);
 
 func _physics_process(_delta):	
 	var diff = camera_angle_target - camera_angle
