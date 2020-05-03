@@ -798,7 +798,7 @@ stream = ExtResource( 32 )
 [node name="Scatter3D" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 0, 0 )
 script = ExtResource( 33 )
-_scenes = [ null, null, null ]
+_scenes = [  ]
 [connection signal="body_entered" from="dungheapArea" to="." method="_on_dungheap_body_entered"]
 [connection signal="body_entered" from="kitchenArea" to="." method="_on_kitchenArea_body_entered"]
 [connection signal="body_entered" from="lumbermill_area" to="." method="_on_kitchenArea_body_entered"]
