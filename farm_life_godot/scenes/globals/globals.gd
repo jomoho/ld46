@@ -7,6 +7,7 @@ var cowMilked = 0
 var grasCut = 0
 var days = 0
 
+var gold = 0
 var timeAlive = 0
 
 var settings = null

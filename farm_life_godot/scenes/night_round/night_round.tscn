@@ -44,8 +44,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
 margin_top = 39.0
-margin_right = -1236.0
-margin_bottom = -650.0
+margin_right = -4.0
+margin_bottom = -4.0
 
 [node name="stats" type="Label" parent="Control/TabContainer/Status"]
 anchor_left = 0.5
@@ -92,12 +92,12 @@ margin_bottom = -4.0
 
 [node name="SellItemsList" type="ItemList" parent="Control/TabContainer/Sell"]
 anchor_bottom = 1.0
-margin_left = 10.9
-margin_top = 9.09998
-margin_right = 284.9
-margin_bottom = -6.90002
+margin_left = 13.0
+margin_top = 9.0
+margin_right = 285.0
+margin_bottom = -12.0
 allow_reselect = true
-max_text_lines = 2
+same_column_width = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -132,7 +132,6 @@ __meta__ = {
 }
 
 [node name="Buy" type="Tabs" parent="Control/TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -143,10 +142,10 @@ margin_bottom = -4.0
 [node name="instructions" type="Label" parent="Control"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -512.5
-margin_top = 292.0
-margin_right = 512.5
-margin_bottom = 463.0
+margin_left = -509.65
+margin_top = 292.95
+margin_right = 515.35
+margin_bottom = 463.95
 theme = SubResource( 1 )
 custom_fonts/font = ExtResource( 2 )
 align = 1
