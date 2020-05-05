@@ -1,4 +1,4 @@
-extends "carry.gd"
+extends "./labeled.gd"
 
 const MAX_GROW_TIME = 240
 const MAX_HITS = 5

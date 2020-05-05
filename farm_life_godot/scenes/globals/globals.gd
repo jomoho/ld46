@@ -9,7 +9,12 @@ var days = 0
 
 var timeAlive = 0
 
+var settings = null
+
 func _ready():
+	var S = load("res://scenes/globals/settings.gd")
+	settings = S.new()
+	#settings.load()
 	pass
 
 func reset():
@@ -21,6 +26,16 @@ func reset():
 	
 	timeAlive = 0
 	days = 0
+	pass
+	
+func _process(_delta):
+	
+	if(Input.is_action_pressed("debug_on")):
+		settings.showLabels = true
+		print("debug_on")
+	if(Input.is_action_pressed("debug_off")):
+		print("debug_off")
+		settings.showLabels = false
 	pass
 
 func get_stats():

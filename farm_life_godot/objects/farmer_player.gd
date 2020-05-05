@@ -1,9 +1,14 @@
 extends KinematicBody
 
-# stuff
-var label
-var labelAnchor
-var cam
+onready var label = $Label
+onready var labelAnchor = $LabelAnchor
+onready var cam = get_tree().get_root().get_camera()
+
+export(NodePath)  var cameraPath
+export(NodePath)  var meshPath
+export(NodePath)  var animTreePath
+export(NodePath)  var skeletonPath
+
 var timeAlive = 0
 var actionCounter = 1
 var equiped = null
@@ -17,20 +22,14 @@ var carryAnchor
 var pooAnchor
 var wheelbarrowAnchor
 
-
-var gravity = -9.8
-var velocity = Vector3()
-export(NodePath)  var cameraPath
-export(NodePath)  var meshPath
-export(NodePath)  var animTreePath
-export(NodePath)  var skeletonPath
-
 var camera
 var mesh
 var animTree
 var skeleton
 var rightHandBoneId
 
+var velocity = Vector3()
+var gravity = -9.8
 const SPEED = 12
 const ACCELERATION = 3
 const DE_ACCELERATION = 5
@@ -39,9 +38,6 @@ var drive = false;
 
 
 func _ready():
-	cam = get_tree().get_root().get_camera()
-	label = get_node("Label")
-	labelAnchor = get_node("LabelAnchor")
 	camera = get_node(cameraPath)
 	mesh = get_node(meshPath)
 	animTree = get_node(animTreePath)

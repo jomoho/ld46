@@ -1,12 +1,12 @@
-# Carry
-extends RigidBody
-
+# Labeled
+extends Spatial
 
 const  MAX_LABEL_DISTANCE = 30
-# stuff
-var label
-var labelAnchor
-var cam
+
+onready var label = $Label
+onready var labelAnchor = $LabelAnchor
+onready var cam = get_tree().get_root().get_camera()
+onready var globals = get_node("/root/globals")
 
 var timeAlive = 0;
 
@@ -15,22 +15,22 @@ export var ignoreDistanceCulling = false;
 export var disableCollision = true
 
 var transporter = null
-
 var isCarried = false
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
-	cam = get_tree().get_root().get_camera()
-	label = get_node("Label")
-	labelAnchor = get_node("LabelAnchor")
 	pass
 	
 func _process(_delta):
+	label.set_visible( globals.settings.showLabels)
+	if not globals.settings.showLabels:
+		return
+			
 	timeAlive += _delta
 	if(dynamicText):
 		label.set_text(make_text())
 	## adjust label position
 	var pos = labelAnchor.get_global_transform().origin;
-
+	
 	
 	var screenPos = cam.unproject_position(pos);
 	label.set_position(screenPos);
@@ -56,25 +56,23 @@ func make_text():
 func exit_area(body):
 	pass
 	
-func pick_up():
-	isCarried = true
-	set_mode(RigidBody.MODE_CHARACTER)
-	if disableCollision:
-		get_node("Area/CollisionShape").disabled = true;
-		print("disabled CollisionShape %s" % name)
-	pass
-	
-func drop():
-	isCarried = false
-	transporter = null
-	set_mode(RigidBody.MODE_RIGID)
-	get_node("Area/CollisionShape").disabled = false;
-	print("enabled CollisionShape %s", name)
-	pass
-	
-func transporter_unload_stack():
-	if transporter != null:
-		if transporter.is_in_group("player"):
-			transporter.drop_stack()
-		elif transporter.is_in_group("wheelbarrow"):
-			transporter.unload_from_stack(self)
+#func pick_up():
+#	isCarried = true	
+#	if disableCollision:
+#		get_node("Area/CollisionShape").disabled = true;
+#		print("disabled CollisionShape %s" % name)
+#	pass
+#
+#func drop():
+#	isCarried = false
+#	transporter = null
+#	get_node("Area/CollisionShape").disabled = false;
+#	print("enabled CollisionShape %s", name)
+#	pass
+#
+#func transporter_unload_stack():
+#	if transporter != null:
+#		if transporter.is_in_group("player"):
+#			transporter.drop_stack()
+#		elif transporter.is_in_group("wheelbarrow"):
+#			transporter.unload_from_stack(self)

@@ -1,4 +1,4 @@
-extends "carry.gd"
+extends "labeled.gd"
 
 var transportAnchors = []
 var stack = []

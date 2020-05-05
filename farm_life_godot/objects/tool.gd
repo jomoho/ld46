@@ -1,5 +1,5 @@
 # TOOL
-extends "carry _rigidbody.gd"
+extends "labeled _rigidbody.gd"
 
 func _on_Area_body_entered(body):
 	print("%s entered" % name)

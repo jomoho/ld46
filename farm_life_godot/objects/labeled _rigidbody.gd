@@ -1,12 +1,12 @@
-# Carry
-extends Spatial
-
+# Labeled RigidBody
+extends RigidBody
 
 const  MAX_LABEL_DISTANCE = 30
-# stuff
-var label
-var labelAnchor
-var cam
+
+onready var label = $Label
+onready var labelAnchor = $LabelAnchor
+onready var cam = get_tree().get_root().get_camera()
+onready var globals = get_node("/root/globals")
 
 var timeAlive = 0;
 
@@ -15,38 +15,35 @@ export var ignoreDistanceCulling = false;
 export var disableCollision = true
 
 var transporter = null
-
 var isCarried = false
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
-	cam = get_tree().get_root().get_camera()
-	label = get_node("Label")
-	labelAnchor = get_node("LabelAnchor")
 	pass
 	
 func _process(_delta):
+	label.set_visible( globals.settings.showLabels)
+	if not globals.settings.showLabels:
+		return
 	timeAlive += _delta
 	if(dynamicText):
 		label.set_text(make_text())
+	
 	## adjust label position
 	var pos = labelAnchor.get_global_transform().origin;
 
-	
-	var screenPos = cam.unproject_position(pos);
-	label.set_position(screenPos);
-	
-	var direction = pos - cam.get_global_transform().origin
-	var isVisible = false
-	if direction.dot(cam.get_global_transform().basis.z) < 0:
-		isVisible = true
-	
-	if direction.length() > MAX_LABEL_DISTANCE and not ignoreDistanceCulling:
-		isVisible = false;
-
-	if isVisible:
-		label.show()
-	else: # othwerwise we hide it
-		label.hide()
+	if cam != null:
+		var screenPos = cam.unproject_position(pos);
+		label.set_position(screenPos)
+		var direction = pos - cam.get_global_transform().origin		
+		var isVisible = false
+		if direction.dot(cam.get_global_transform().basis.z) < 0:
+			isVisible = true		
+		if direction.length() > MAX_LABEL_DISTANCE and not ignoreDistanceCulling:
+			isVisible = false;
+		if isVisible:
+			label.show()
+		else: # othwerwise we hide it
+			label.hide()
 	pass
 
 func make_text():
@@ -58,7 +55,7 @@ func exit_area(body):
 	
 func pick_up():
 	isCarried = true
-	
+	set_mode(RigidBody.MODE_CHARACTER)
 	if disableCollision:
 		get_node("Area/CollisionShape").disabled = true;
 		print("disabled CollisionShape %s" % name)
@@ -67,6 +64,7 @@ func pick_up():
 func drop():
 	isCarried = false
 	transporter = null
+	set_mode(RigidBody.MODE_RIGID)
 	get_node("Area/CollisionShape").disabled = false;
 	print("enabled CollisionShape %s", name)
 	pass

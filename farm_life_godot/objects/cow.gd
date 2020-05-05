@@ -1,4 +1,4 @@
-extends "carry.gd"
+extends "./labeled.gd"
 
 const POO_INTERVAL = 20
 const HUNGER_INTERVAL = 40

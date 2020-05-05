@@ -1,4 +1,4 @@
-extends "carry _rigidbody.gd"
+extends "labeled _rigidbody.gd"
 
 var destroyed = false;
 
